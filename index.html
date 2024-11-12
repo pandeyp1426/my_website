@@ -10,7 +10,7 @@
     <!-- Header and Navigation -->
     <header>
         <h1>Pradeep Pandey</h1>
-        <p>Web Developer | CS-Mobile Application Student</p>    
+		<p>Web Developer | CS-Mobile Application Student</p>	
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -24,7 +24,11 @@
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
-        <p>I’m Pradeep Pandey, a Computer Science major at the University of Wisconsin-Stout with a concentration in Mobile Application Development. With a solid foundation in programming languages like C++, Java, HTML, CSS, and JavaScript, I’m passionate about creating impactful solutions in the tech industry...</p>
+        <p>I’m Pradeep Pandey, a Computer Science major at the University of Wisconsin-Stout with a concentration in Mobile Application Development. With a solid foundation in programming languages like C++, Java, HTML, CSS, and JavaScript, I’m passionate about creating impactful solutions in the tech industry. My experience includes developing a responsive restaurant website as an academic project, where I implemented features like user-friendly navigation and an online ordering system.
+
+I bring strong technical and problem-solving skills, which I’m eager to further develop through internships and co-op opportunities in the tech industry. My hands-on experience as a Student Manager and Conference Assistant has honed my leadership, time management, and communication abilities, essential for success in dynamic work environments. I am actively involved in volunteer work and leadership roles, such as with the Leo Club of Prayasnagar-Kathmandu, where I organized social initiatives and community service projects.
+
+Driven by curiosity and a commitment to growth, I am continuously expanding my technical expertise, demonstrated by certifications like the Google IT Support Professional Certificate. I look forward to contributing my skills and enthusiasm to innovative projects in the tech field.</p>
     </section>
 
     <!-- Projects Section -->
@@ -32,8 +36,40 @@
         <h2>Projects</h2>
         <div class="project">
             <h3>Chuddrey Web Application</h3>
-            <p>The <strong>Chuddrey Restaurant</strong> web application is an interactive online food ordering platform designed to showcase my skills in full-stack web development...</p>
+			<p>The <strong>Chuddrey Restaurant</strong> web application is an interactive online food ordering platform designed to showcase my skills in full-stack web development. Built with a combination of HTML, CSS, JavaScript, PHP, and MySQL, this project delivers a seamless user experience, from browsing menu items to placing delivery orders as a part of an academic project.</p>
+
+        <h4>Project Features</h4>
+        <ul>
+            <li><strong>User Authentication:</strong> Users can securely sign in or create an account using a registration form. The login and registration system is built with PHP and MySQL, ensuring secure data handling and authentication.</li>
+            <li><strong>Dynamic Menu Display:</strong> The application displays a visually engaging food menu, complete with images, prices, and descriptions for each item. Users can select items to add to their cart, making the ordering process intuitive and interactive.</li>
+            <li><strong>Shopping Cart and Order Summary:</strong> Selected menu items are added to a cart, where users can review and modify their order. JavaScript enhances interactivity by dynamically updating the cart and providing immediate feedback on user actions.</li>
+            <li><strong>Order and Delivery Information:</strong> A detailed form allows users to input delivery information and choose their preferred payment method (MasterCard, Visa, or American Express). All information is processed and stored securely in a MySQL database using PHP and SQL for data management.</li>
+            <li><strong>Database-Driven Backend:</strong> The application utilizes a MySQL database with multiple linked tables to store user accounts, menu items, and order details. PHP and SQL queries manage user authentication, data retrieval, and order storage, creating a robust and secure backend.</li>
+        </ul>
+
+        <h4>Technologies Used</h4>
+        <ul>
+            <li><strong>Frontend:</strong> HTML, CSS, JavaScript for UI design and interactive elements.</li>
+            <li><strong>Backend:</strong> PHP for server-side processing and SQL for managing database interactions.</li>
+            <li><strong>Database:</strong> MySQL for persistent storage of user, menu, and order data.</li>
+            <li><strong>Hosting:</strong> Connected to an online MySQL database, using a free hosting service for real-time data management.</li>
+        </ul>
+
+        <h4>Project Highlights</h4>
+        <p>The <strong>Chuddrey Restaurant</strong> project showcases my ability to build a complete web application with both frontend and backend components. This project demonstrates:</p>
+        <ul>
+            <li><strong>Database Management:</strong> Effective use of MySQL for structured data storage and retrieval.</li>
+            <li><strong>Dynamic and Interactive Design:</strong> Engaging UI with HTML, CSS, and JavaScript for a user-friendly experience.</li>
+            <li><strong>Backend Development:</strong> Robust server-side processing with PHP for secure data handling.</li>
+            <li><strong>Real-World Application:</strong> A simulated online ordering platform that reflects industry-standard practices in web development.</li>
+        </ul>
+           <img src="pro1.JPG.jpg" alt="Project 1 Screenshot">
+			<img src="pro3.jpg.jpg" alt="Project 1 Screenshot">
+			<img src="pro2.jpg.jpg" alt="Project 1 Screenshot">
+        <p>This project has helped me hone my skills in full-stack development, from designing responsive user interfaces to implementing secure data storage. It reflects my commitment to creating functional, secure, and visually appealing web applications.</p>
+        <p><a href="https://github.com/pandeyp1426" target="_blank">View on GitHub</a></p>
         </div>
+        <!-- Repeat project divs for each project -->
     </section>
 
     <!-- Contact Section -->
@@ -42,61 +78,27 @@
         <p>Email: <a href="mailto:pandeyp1426@my.uwstout.edu">pandeyp1426@my.uwstout.edu</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/pradeep-pandey-341198273/" target="_blank">LinkedIn Profile</a></p>
         <p>GitHub: <a href="https://github.com/pandeyp1426" target="_blank">GitHub Profile</a></p>
-
-        <!-- Contact Form -->
-        <form id="contactForm" class="contact-form">
-            <div class="form-group">
-                <label for="name">Name: <span>*</span></label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email: <span>*</span></label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject:</label>
-                <input type="text" id="subject" name="subject">
-            </div>
-            <div class="form-group full-width">
-                <label for="message">Message: <span>*</span></label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="button" onclick="sendEmail()" class="submit-button">Send Message</button>
-        </form>
-        <div id="status"></div>
-    </section>
-
-    <!-- JavaScript for EmailJS Integration -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS with your User ID
-        (function() {
-            emailjs.init("YOUR_USER_ID"); // Replace "YOUR_USER_ID" with your actual EmailJS User ID
-        })();
-
-        function sendEmail() {
-            // Collect form values
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const subject = document.getElementById("subject").value || "No subject provided"; // Fallback if no subject
-            const message = document.getElementById("message").value;
-
-            // Send email using EmailJS
-            emailjs.send("service_uo3in7g", "template_mon058e", {
-                from_name: name,
-                from_email: email,
-                subject: subject,
-                message: message
-            })
-            .then((response) => {
-                document.getElementById("status").innerText = "Message sent successfully!";
-            })
-            .catch((error) => {
-                document.getElementById("status").innerText = "Failed to send message. Please try again later.";
-                console.error("Error:", error);
-            });
-        }
-    </script>
+ 
+    <form action="your_form_handling_url" method="POST" class="contact-form">
+        <div class="form-group">
+            <label for="name">Name: <span>*</span></label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email: <span>*</span></label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
+        </div>
+        <div class="form-group full-width">
+            <label for="message">Message: <span>*</span></label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Send Message</button>
+    </form>
+</section>
 
     <!-- Footer -->
     <footer>
