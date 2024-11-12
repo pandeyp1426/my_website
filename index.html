@@ -20,15 +20,6 @@
             </ul>
         </nav>
     </header>
-	<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
 
     <!-- Other content of your website -->
 
@@ -49,7 +40,7 @@
     <script>
         // Initialize EmailJS with your User ID
         (function() {
-            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+            emailjs.init("service_uo3in7g"); 
         })();
 
         function sendEmail() {
@@ -59,7 +50,16 @@
             const message = document.getElementById("message").value;
 
             // Send email using EmailJS
-            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            emailjs.send("service_uo3in7g", "Hello {{to_name}},
+
+You have received a new message from {{from_name}} ({{from_email}}). Here’s what they said:
+
+{{message}}
+
+If you’d like to reply, simply reach out to {{from_name}} at the email address provided above.
+
+Best regards,
+Pradeep Pandey", {
                 from_name: name,
                 from_email: email,
                 message: message
@@ -73,11 +73,6 @@
             });
         }
     </script>
-
-</body>
-</html>
-
-
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
