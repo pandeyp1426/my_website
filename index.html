@@ -22,57 +22,6 @@
     </header>
 
     <!-- Other content of your website -->
-
-    <!-- Contact Form Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form id="contactForm">
-            <input type="text" id="name" name="name" placeholder="Your Name" required>
-            <input type="email" id="email" name="email" placeholder="Your Email" required>
-            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-            <button type="button" onclick="sendEmail()">Send Message</button>
-        </form>
-        <div id="status"></div>
-    </section>
-
-    <!-- JavaScript for EmailJS Integration -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        // Initialize EmailJS with your User ID
-        (function() {
-            emailjs.init("service_uo3in7g"); 
-        })();
-
-        function sendEmail() {
-            // Collect form values
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-
-            // Send email using EmailJS
-            emailjs.send("service_uo3in7g", "Hello {{to_name}},
-
-You have received a new message from {{from_name}} ({{from_email}}). Here’s what they said:
-
-{{message}}
-
-If you’d like to reply, simply reach out to {{from_name}} at the email address provided above.
-
-Best regards,
-Pradeep Pandey", {
-                from_name: name,
-                from_email: email,
-                message: message
-            })
-            .then((response) => {
-                document.getElementById("status").innerText = "Message sent successfully!";
-            })
-            .catch((error) => {
-                document.getElementById("status").innerText = "Failed to send message. Please try again later.";
-                console.error("Error:", error);
-            });
-        }
-    </script>
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
