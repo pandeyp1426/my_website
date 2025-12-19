@@ -163,30 +163,147 @@ style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
 
     <!-- Section Heading -->
     <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">My Projects</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">My Projects</h2>
       <div class="w-24 h-1 mx-auto" style="background-color:#3b82f6;"></div>
+    </div>
+
+    <!-- Featured Project -->
+    <div class="project-card rounded-lg shadow-lg p-8 mb-12 fade-slide-up">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div class="max-w-3xl">
+          <p class="text-sm uppercase tracking-widest mb-2">Featured Project</p>
+          <h3 class="text-3xl font-bold mb-3">RankMyStocks</h3>
+          <p class="text-lg mb-4">
+            Full stack stock ranking and portfolio tracker built with a React single page app connected to a Flask API for market data, news, and persistence.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color:#dbeafe; color:#1e3a8a;">React 19 + Vite</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color:#dbeafe; color:#1e3a8a;">Flask + MySQL</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color:#dbeafe; color:#1e3a8a;">Auth0</span>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background-color:#dbeafe; color:#1e3a8a;">Redux Toolkit</span>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://www.rankmystocks.com" target="_blank"
+             class="inline-block px-5 py-2 rounded-lg font-semibold"
+             style="background-color:#3b82f6; color:white;">
+            Live Demo
+          </a>
+          <a href="https://github.com/pandeyp1426/RankMyStocks" target="_blank"
+             class="inline-block px-5 py-2 rounded-lg font-semibold border"
+             style="border-color:#3b82f6; color:#3b82f6;">
+            GitHub Repo
+          </a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mt-8">
+        <div>
+          <h4 class="text-xl font-semibold mb-2">Overview</h4>
+          <p class="mb-4">
+            RankMyStocks helps users build ranked portfolios quickly with a guided questionnaire and a clean, data-driven UI.
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Full stack SPA with React routes and a Flask REST API.</li>
+            <li>MySQL stores users, portfolios, transactions, and snapshots.</li>
+            <li>Market data and news pulled on demand with graceful fallbacks.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xl font-semibold mb-2">User Features</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Auth0 login with saved portfolios tied to each user.</li>
+            <li>Questionnaire-driven stock ranking to build a portfolio fast.</li>
+            <li>Rename or delete portfolios and track changes over time.</li>
+            <li>Custom SVG chart with line or candlestick toggle.</li>
+            <li>Market news feed plus a daily digest.</li>
+          </ul>
+        </div>
+        <div class="md:col-span-2">
+          <h4 class="text-xl font-semibold mb-2">How It Works</h4>
+          <ol class="list-decimal pl-5 space-y-1">
+            <li>React routes: Home, Questionnaire, My Portfolios, Rankings, News. Auth0 handles login; Redux stores user and questionnaire state.</li>
+            <li>Starting a portfolio calls /api/init. Flask filters tickers (ticker_list.csv + DB metrics) and stores the list in session.</li>
+            <li>/api/next serves stock pairs; /api/get-stock-data fills in prices and short summaries.</li>
+            <li>Picks are tracked via /api/pick. After rounds, the frontend saves to MySQL through /api/portfolios. Users can rename or delete portfolios.</li>
+            <li>Portfolio chart from /api/portfolio-chart. The API aggregates Yahoo Finance candles across holdings; the UI renders a custom SVG chart with line or candlestick toggle.</li>
+            <li>News + digest from /api/market-news and /api/daily-digest. Pulls from external news APIs and optionally summarizes using OpenAI via LangChain when keys are configured.</li>
+          </ol>
+        </div>
+        <div>
+          <h4 class="text-xl font-semibold mb-2">Tech Stack</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Frontend: React 19 + Vite, React Router, Redux Toolkit, Auth0 React SDK, Tailwind CSS + custom CSS, Fetch/Axios.</li>
+            <li>Backend: Flask, flask-cors, python-dotenv, mysql-connector, requests, pandas, yfinance.</li>
+            <li>Data: MySQL (users, portfolios, transactions, snapshots) with ticker_list.csv as the universe.</li>
+            <li>Optional: LangChain + OpenAI for summaries.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-xl font-semibold mb-2">Technical Highlights</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Session-based questionnaire queue and state management.</li>
+            <li>REST API design with validation and graceful error handling.</li>
+            <li>MySQL persistence for portfolios and historical snapshots.</li>
+            <li>Custom SVG chart rendering with line/candlestick toggle.</li>
+            <li>Optional LLM summaries and news digest gated behind environment keys.</li>
+          </ul>
+        </div>
+        <div class="md:col-span-2">
+          <h4 class="text-xl font-semibold mb-2">Future Improvements</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Automated API and UI tests.</li>
+            <li>Better caching and cache invalidation for market data.</li>
+            <li>Background jobs for daily snapshots.</li>
+            <li>Rate limit backoff and pagination for news APIs.</li>
+            <li>Logging and monitoring.</li>
+          </ul>
+        </div>
+      </div>
+
+      <details class="mt-6">
+        <summary class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold"
+                 style="background-color:#e5e7eb; color:#1f2937;">
+          Read More
+        </summary>
+        <div class="mt-4">
+          <p class="mb-3">
+            Configuration notes for running locally or deploying a custom instance.
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>API base uses VITE_API_URL (defaults to /api).</li>
+            <li>Auth0 config via VITE_AUTH0_* or REACT_APP_AUTH0_*.</li>
+            <li>Optional news APIs (Marketaux, Alpha Vantage, Finnhub, FMP) and OpenAI keys are read from .env.</li>
+          </ul>
+        </div>
+      </details>
     </div>
 
     <div class="grid md:grid-cols-2 gap-10">
 
-      <!-- RANKMYSTOCKS -->
+      <!-- RANKMYSTOCKS CARD -->
       <div class="project-card rounded-lg shadow-lg p-8 fade-slide-up">
         <h3 class="text-2xl font-bold mb-3">RankMyStocks</h3>
         <p class="mb-4">
-          A full-stack stock ranking platform built with React and Flask,
-          integrating live market data APIs and MySQL to power real-time portfolio insights.
+          Stock ranking and portfolio tracking with Auth0 login, guided picks, and a custom performance chart.
         </p>
         <ul class="list-disc pl-5 mb-6">
-          <li>React + Flask + MySQL stack</li>
-          <li>Live market data integration</li>
-          <li>Portfolio ranking logic</li>
-          <li>Agile team collaboration</li>
+          <li>React 19 + Flask API</li>
+          <li>MySQL persistence + snapshots</li>
+          <li>News feed and daily digest</li>
         </ul>
-        <a href="https://github.com/pandeyp1426/RankMyStocks" target="_blank"
-           class="inline-block px-5 py-2 rounded-lg font-semibold"
-           style="background-color:#3b82f6; color:white;">
-          View on GitHub
-        </a>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://www.rankmystocks.com" target="_blank"
+             class="inline-block px-5 py-2 rounded-lg font-semibold"
+             style="background-color:#3b82f6; color:white;">
+            Live Demo
+          </a>
+          <a href="https://github.com/pandeyp1426/RankMyStocks" target="_blank"
+             class="inline-block px-5 py-2 rounded-lg font-semibold border"
+             style="border-color:#3b82f6; color:#3b82f6;">
+            GitHub Repo
+          </a>
+        </div>
       </div>
 
       <!-- EXERCISE BINGO -->
@@ -197,7 +314,7 @@ style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
           generate custom bingo boards using selected exercises.
         </p>
         <ul class="list-disc pl-5 mb-6">
-          <li>Dynamic 5×5 board creation</li>
+          <li>Dynamic 5A-5 board creation</li>
           <li>Custom exercise database</li>
           <li>Team-built full-stack system</li>
         </ul>
