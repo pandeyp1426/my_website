@@ -164,33 +164,46 @@ function HeroVisual() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
               Portfolio Console
             </p>
-            <p className="mt-1 font-semibold text-ink">Project health snapshot</p>
+            <p className="mt-1 font-semibold text-ink">Current work snapshot</p>
           </div>
           <span className="rounded-full bg-mint/15 px-3 py-1 text-sm font-semibold text-teal-700">
-            Active
+            Capstone
           </span>
         </div>
         <div className="grid gap-4 p-5">
           <div className="grid grid-cols-3 gap-3">
-            {['React', 'Flask', 'MySQL'].map((item, index) => (
+            {['IIIF 3D', 'Cloud Apps', 'C++ Systems'].map((item, index) => (
               <div key={item} className="metric-tile">
-                <span className="text-xs text-slate-500">Layer {index + 1}</span>
+                <span className="text-xs text-slate-500">
+                  {['Focus', 'Full-stack', 'Algorithms'][index]}
+                </span>
                 <strong>{item}</strong>
               </div>
             ))}
           </div>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-600">Build flow</span>
-              <span className="text-xs text-slate-500">UI + API + data</span>
+              <span className="text-sm font-semibold text-slate-600">Evidence areas</span>
+              <span className="text-xs text-slate-500">UI + data + deployment</span>
             </div>
             <div className="space-y-3">
-              {[82, 68, 94, 76].map((width, index) => (
-                <div key={width} className="h-3 overflow-hidden rounded-full bg-white">
+              {[
+                ['IIIF editor UX', 92],
+                ['AWS deployment', 86],
+                ['Database design', 80],
+                ['OOP algorithms', 76],
+              ].map(([label, width], index) => (
+                <div key={label}>
+                  <div className="mb-1 flex justify-between text-xs font-medium text-slate-500">
+                    <span>{label}</span>
+                    <span>{width}%</span>
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full bg-white">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-ocean via-mint to-coral"
                     style={{ width: `${width}%`, animationDelay: `${index * 0.2}s` }}
                   />
+                </div>
                 </div>
               ))}
             </div>
@@ -198,11 +211,11 @@ function HeroVisual() {
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-lg bg-ink p-4 text-white">
               <span className="text-xs text-white/60">Featured</span>
-              <p className="mt-1 text-lg font-semibold">IIIF 3D Editor</p>
+              <p className="mt-1 text-lg font-semibold">IIIF 3D Manifest Editor</p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-4">
-              <span className="text-xs text-slate-500">Focus</span>
-              <p className="mt-1 text-lg font-semibold">Internship-ready</p>
+              <span className="text-xs text-slate-500">Supporting</span>
+              <p className="mt-1 text-lg font-semibold">RankMyStocks + WFC</p>
             </div>
           </div>
         </div>
