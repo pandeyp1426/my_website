@@ -70,6 +70,8 @@ class SocialLink {
   }
 }
 
+const assetPath = (fileName) => `${import.meta.env.BASE_URL}${fileName}`;
+
 export const navItems = [
   new NavigationItem('About', '#about'),
   new NavigationItem('Projects', '#projects'),
@@ -140,7 +142,7 @@ export const featuredProject = new Project({
   media: [
     {
       type: 'video',
-      src: '/iiif_lamp.mp4',
+      src: assetPath('iiif_lamp.mp4'),
       alt: 'Short screen recording of the IIIF 3D Manifest Editor interface',
       caption: 'Editing workflow and live manifest preview',
     },
@@ -190,7 +192,7 @@ export const projects = [
     media: [
       {
         type: 'image',
-        src: '/rankmystocks.png',
+        src: assetPath('rankmystocks.png'),
         alt: 'RankMyStocks portfolio dashboard screenshot',
         caption: 'Portfolio dashboard and ranked stock workflow',
       },
@@ -238,7 +240,7 @@ export const projects = [
     media: [
       {
         type: 'image',
-        src: '/optics_automation.png',
+        src: assetPath('optics_automation.png'),
         alt: 'Fiber optic alignment and test station simulator screenshot',
         caption: 'Automation-style station workflow mockup',
       },
@@ -280,7 +282,7 @@ export const projects = [
     media: [
       {
         type: 'image',
-        src: '/wfc.gif',
+        src: assetPath('wfc.gif'),
         alt: 'Animated Wave Function Collapse biome generation demo',
         caption: 'Animated collapse process for biome generation',
       },
@@ -322,25 +324,25 @@ export const projects = [
     media: [
       {
         type: 'image',
-        src: '/ctf_1.png',
+        src: assetPath('ctf_1.png'),
         alt: 'RSA cryptography CTF challenge screenshot',
         caption: 'Challenge statement',
       },
       {
         type: 'image',
-        src: '/challenge_input.png',
+        src: assetPath('challenge_input.png'),
         alt: 'RSA CTF challenge input screenshot',
         caption: 'Challenge input',
       },
       {
         type: 'image',
-        src: '/solved_steps.png',
+        src: assetPath('solved_steps.png'),
         alt: 'RSA CTF solved steps screenshot',
         caption: 'Solution steps',
       },
       {
         type: 'image',
-        src: '/attack-types.png',
+        src: assetPath('attack-types.png'),
         alt: 'RSA attack types writeup screenshot',
         caption: 'Attack notes',
       },

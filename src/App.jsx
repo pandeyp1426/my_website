@@ -32,6 +32,8 @@ import {
   socialLinks,
 } from './data/portfolio';
 
+const assetPath = (fileName) => `${import.meta.env.BASE_URL}${fileName}`;
+
 function useScrollReveal() {
   useEffect(() => {
     const elements = document.querySelectorAll('[data-reveal]');
@@ -159,7 +161,7 @@ function Hero() {
               View Projects
               <ArrowUpRight size={18} />
             </ButtonLink>
-            <ButtonLink href="/resume.pdf" variant="secondary" external>
+            <ButtonLink href={assetPath('resume.pdf')} variant="secondary" external>
               Download Resume
               <Download size={18} />
             </ButtonLink>
@@ -546,7 +548,7 @@ function Resume() {
             theory-heavy computer science work.
           </p>
           <div className="mt-6">
-            <ButtonLink href="/resume.pdf" variant="primary" external>
+            <ButtonLink href={assetPath('resume.pdf')} variant="primary" external>
               Download Resume
               <Download size={18} />
             </ButtonLink>
