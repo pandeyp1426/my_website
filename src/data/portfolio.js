@@ -64,7 +64,7 @@ export const skillGroups = [
   new SkillGroup('Databases', ['MySQL', 'AWS RDS', 'IndexedDB', 'SQL Schema Design', 'Portfolio Transaction Storage', 'Local Browser Storage']),
   new SkillGroup('Cloud', ['AWS EC2', 'AWS RDS', 'Google Cloud DNS', 'Ubuntu/Linux', 'Nginx', 'Gunicorn', 'systemd', 'Let’s Encrypt']),
   new SkillGroup('Tools', ['Git', 'GitHub', 'CMake', 'SFML', 'Catch2', 'JavaFX', 'RStudio', 'yfinance', 'LangChain', 'OpenAI API']),
-  new SkillGroup('Concepts', ['Object-Oriented Programming', 'Data Structures', 'Algorithms', 'Operating Systems', 'Finite Automata', 'Cryptography', 'RSA', 'AES']),
+  new SkillGroup('Concepts', ['Object-Oriented Programming', 'Data Structures', 'Algorithms', 'Operating Systems', 'Formal Languages', 'DFA/NFA', 'Context-Free Grammars', 'Cryptography', 'RSA', 'Modular Arithmetic']),
 ];
 
 export const featuredProject = new Project({

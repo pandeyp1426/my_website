@@ -11,6 +11,13 @@ import {
   Menu,
   Phone,
   Sparkles,
+  BadgeCheck,
+  Braces,
+  Cloud,
+  Code2,
+  Database,
+  Sigma,
+  Wrench,
   X,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -226,42 +233,61 @@ function HeroVisual() {
 
 function About() {
   const [expanded, setExpanded] = useState(false);
-  const visibleGroups = expanded ? skillGroups : skillGroups.slice(0, 2);
+  const featuredGroups = skillGroups.slice(0, 4);
+  const extraGroups = skillGroups.slice(4);
+  const visibleGroups = expanded ? skillGroups : featuredGroups;
 
   return (
     <Section id="about" eyebrow="About" title="Developer with product and operations range.">
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-5 text-lg leading-8 text-slate-600" data-reveal>
           <p>
-            I am a Computer Science major at the University of Wisconsin-Stout
-            with a concentration in Mobile Application Development. I enjoy
-            building practical, user-focused software that solves real problems,
-            from finance tools to gamified wellness platforms.
+            I am a Computer Science student at the University of Wisconsin-Stout
+            with an Applied Mathematics minor, building across full-stack web,
+            cloud deployment, databases, C++ systems, cryptography, and
+            theory-heavy computer science. This semester, my work has moved well
+            beyond small assignments into deployed products, capstone software,
+            formal proof writing, and algorithm-focused projects.
           </p>
           <p>
-            My work spans React, TypeScript, Flask, FastAPI, C#, C++, SQL, and
-            cloud-hosted systems, with a focus on practical tools that turn
-            complex workflows into usable interfaces.
+            My current focus is a real-world IIIF 3D Manifest Editor and Viewer
+            capstone built with React, TypeScript, Vite, Tailwind, IndexedDB,
+            GitHub Gist workflows, and structured JSON. I also built and deployed
+            RankMyStocks, a full-stack stock ranking and portfolio platform using
+            React, Redux, Flask, MySQL, Auth0, AWS EC2/RDS, Nginx, Gunicorn,
+            HTTPS, and Google Cloud DNS.
           </p>
           <p>
-            Leadership roles in campus dining and event operations have sharpened
-            how I communicate, prioritize, and stay accountable under pressure.
+            On the theory and systems side, I have been working with formal
+            languages and automata, DFA/NFA reasoning, context-free grammars,
+            LaTeX proof documentation, RSA cryptography, modular arithmetic,
+            finite automata, C++ procedural generation, and automation-style
+            simulators. I also serve as an Event Management Lead and core team
+            member in the UW-Stout AWS Cloud Club, helping organize cloud-focused
+            events and technical learning opportunities.
           </p>
         </div>
-        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
-          <div className="mb-6 flex items-center justify-between gap-3">
-            <h3 className="text-xl font-semibold">Skills & Tools</h3>
+        <div className="skills-panel" data-reveal>
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="section-eyebrow">Toolkit</p>
+              <h3 className="mt-2 text-2xl font-bold">Skills & Tools</h3>
+            </div>
             <button type="button" className="small-button" onClick={() => setExpanded((value) => !value)}>
-              {expanded ? 'Less' : 'More'}
+              {expanded ? 'Show Focus' : 'Show All'}
               <ChevronDown size={16} className={expanded ? 'rotate-180 transition' : 'transition'} />
             </button>
           </div>
-          <div className="space-y-6">
+          <div className="grid gap-4">
             {visibleGroups.map((group) => (
-              <div key={group.name}>
-                <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
-                  {group.name}
-                </h4>
+              <div key={group.name} className="skill-group-card">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="skill-group-icon">{getSkillIcon(group.name)}</span>
+                  <div>
+                    <h4 className="font-bold text-ink">{group.name}</h4>
+                    <p className="text-xs font-medium text-slate-500">{getSkillSummary(group.name)}</p>
+                  </div>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((skill) => (
                     <span key={skill} className="skill-pill">
@@ -272,10 +298,42 @@ function About() {
               </div>
             ))}
           </div>
+          {!expanded && (
+            <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-500">
+              More depth available in tools and CS concepts, including CMake, SFML, Catch2,
+              cryptography, formal languages, and modular arithmetic.
+            </div>
+          )}
         </div>
       </div>
     </Section>
   );
+}
+
+function getSkillIcon(name) {
+  const icons = {
+    Languages: <Code2 size={18} />,
+    Web: <Braces size={18} />,
+    Databases: <Database size={18} />,
+    Cloud: <Cloud size={18} />,
+    Tools: <Wrench size={18} />,
+    Concepts: <Sigma size={18} />,
+  };
+
+  return icons[name] ?? <BadgeCheck size={18} />;
+}
+
+function getSkillSummary(name) {
+  const summaries = {
+    Languages: 'Daily programming stack',
+    Web: 'Frontend, APIs, and app structure',
+    Databases: 'Persistence and schema work',
+    Cloud: 'Production deployment experience',
+    Tools: 'Build, test, data, and AI tooling',
+    Concepts: 'Theory, systems, and security',
+  };
+
+  return summaries[name] ?? 'Technical focus area';
 }
 
 function Projects() {

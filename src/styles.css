@@ -50,7 +50,22 @@
   }
 
   .skill-pill {
-    @apply rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-mint/40 hover:bg-mint/10 hover:text-teal-700;
+    @apply rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-mint/40 hover:bg-mint/10 hover:text-teal-700;
+  }
+
+  .skills-panel {
+    @apply rounded-lg border border-slate-200 bg-white p-6 shadow-lift;
+    background:
+      linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(45, 212, 191, 0.06) 42%, rgba(249, 115, 91, 0.04)),
+      #ffffff;
+  }
+
+  .skill-group-card {
+    @apply rounded-lg border border-slate-200 bg-white/90 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-ocean/20 hover:shadow-lift;
+  }
+
+  .skill-group-icon {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-ink text-white shadow-sm;
   }
 
   .stack-pill {
