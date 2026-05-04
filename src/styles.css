@@ -21,16 +21,16 @@
 
 @layer components {
   .nav-link {
-    @apply rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-ocean;
+    @apply rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-ocean focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
   }
 
   .icon-button {
-    @apply inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-ocean/30 hover:text-ocean hover:shadow-lift;
+    @apply inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-ocean/30 hover:text-ocean hover:shadow-lift focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
   }
 
   .button-primary,
   .button-secondary {
-    @apply inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition;
+    @apply inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
   }
 
   .button-primary {
@@ -42,7 +42,7 @@
   }
 
   .small-button {
-    @apply inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold transition hover:border-ocean/30 hover:bg-white hover:text-ocean;
+    @apply inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold transition hover:border-ocean/30 hover:bg-white hover:text-ocean focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
   }
 
   .section-eyebrow {
@@ -80,6 +80,62 @@
     @apply rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lift;
   }
 
+  .project-card-prominent {
+    @apply border-ocean/25 shadow-lift;
+  }
+
+  .project-preview {
+    @apply min-h-64 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5;
+    background:
+      linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(45, 212, 191, 0.09) 48%, rgba(249, 115, 91, 0.08)),
+      #f8fafc;
+  }
+
+  .project-preview-media {
+    @apply overflow-hidden border-solid border-slate-200 bg-white p-2;
+    background: #ffffff;
+  }
+
+  .project-preview-compact {
+    @apply min-h-36;
+  }
+
+  .project-media-single {
+    @apply h-full;
+  }
+
+  .project-media-grid {
+    @apply grid gap-2 sm:grid-cols-2;
+  }
+
+  .project-media-frame {
+    @apply relative overflow-hidden rounded-md border border-slate-200 bg-slate-100;
+  }
+
+  .project-media {
+    @apply block aspect-video h-full w-full object-cover;
+  }
+
+  .project-media-frame figcaption {
+    @apply absolute inset-x-0 bottom-0 bg-ink/75 px-3 py-2 text-xs font-semibold text-white backdrop-blur;
+  }
+
+  .project-preview-compact .project-media-grid {
+    @apply grid-cols-2;
+  }
+
+  .project-preview-compact .project-media-frame figcaption {
+    @apply hidden sm:block;
+  }
+
+  .project-details {
+    @apply mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4;
+  }
+
+  .project-details summary {
+    @apply cursor-pointer text-sm font-bold text-ink transition hover:text-ocean focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
+  }
+
   .dashboard-shell {
     @apply overflow-hidden rounded-lg border border-white/70 bg-white/90 shadow-glow backdrop-blur;
   }
@@ -93,7 +149,7 @@
   }
 
   .contact-row {
-    @apply flex items-center gap-4 rounded-lg border border-transparent p-2 transition hover:border-slate-200 hover:bg-slate-50;
+    @apply flex items-center gap-4 rounded-lg border border-transparent p-2 transition hover:border-slate-200 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
   }
 }
 

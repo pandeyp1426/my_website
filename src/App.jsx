@@ -1,7 +1,12 @@
 import {
   ArrowUpRight,
+  BadgeCheck,
+  Braces,
   BriefcaseBusiness,
   ChevronDown,
+  Cloud,
+  Code2,
+  Database,
   Download,
   Github,
   GraduationCap,
@@ -10,13 +15,8 @@ import {
   MapPin,
   Menu,
   Phone,
-  Sparkles,
-  BadgeCheck,
-  Braces,
-  Cloud,
-  Code2,
-  Database,
   Sigma,
+  Sparkles,
   Wrench,
   X,
 } from 'lucide-react';
@@ -62,6 +62,7 @@ function App() {
         <Hero />
         <About />
         <Projects />
+        <Experience />
         <Resume />
         <Contact />
       </main>
@@ -74,8 +75,8 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/80 shadow-sm backdrop-blur-xl">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/85 shadow-sm backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
         <a href="#home" className="font-semibold tracking-tight text-ink">
           Pradeep Pandey
         </a>
@@ -85,10 +86,24 @@ function Navbar() {
               {item.label}
             </a>
           ))}
+          <span className="mx-2 h-6 w-px bg-slate-200" />
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              aria-label={link.label}
+              target="_blank"
+              rel="noreferrer"
+              className="icon-button h-9 w-9"
+            >
+              {link.label === 'GitHub' ? <Github size={18} /> : <Linkedin size={18} />}
+            </a>
+          ))}
         </div>
         <button
           type="button"
           aria-label="Toggle navigation"
+          aria-expanded={open}
           className="icon-button md:hidden"
           onClick={() => setOpen((current) => !current)}
         >
@@ -107,6 +122,13 @@ function Navbar() {
               {item.label}
             </a>
           ))}
+          <div className="mt-3 flex gap-3 px-3">
+            {socialLinks.map((link) => (
+              <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="button-secondary py-2">
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       )}
     </header>
@@ -121,15 +143,16 @@ function Hero() {
         <div data-reveal>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
             <Sparkles size={16} className="text-coral" />
-            Open-source developer working on IIIF 3D editing tools
+            Computer Science student building deployed software
           </div>
-          <h1 className="max-w-4xl text-5xl font-bold leading-[1.03] tracking-normal text-ink sm:text-6xl lg:text-7xl">
-            Building polished web apps with strong product instincts.
+          <h1 className="max-w-4xl text-4xl font-bold leading-[1.06] tracking-normal text-ink sm:text-6xl lg:text-7xl">
+            I build full-stack, cloud-deployed, and systems-focused software.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            I am Pradeep Pandey, a Computer Science student at UW-Stout. My
-            current focus is a React and TypeScript IIIF 3D Manifest Editor that
-            helps users build, preview, and export structured 3D manifests.
+            I am Pradeep Pandey, a UW-Stout Computer Science student working
+            with React, TypeScript, Flask, AWS, databases, and C++ systems. My
+            strongest work connects usable interfaces with backend, deployment,
+            data, and algorithmic problems.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <ButtonLink href="#projects" variant="primary">
@@ -137,7 +160,7 @@ function Hero() {
               <ArrowUpRight size={18} />
             </ButtonLink>
             <ButtonLink href="/resume.pdf" variant="secondary" external>
-              Resume
+              Download Resume
               <Download size={18} />
             </ButtonLink>
           </div>
@@ -163,6 +186,13 @@ function Hero() {
 }
 
 function HeroVisual() {
+  const evidence = [
+    ['IIIF editor', 'React, TypeScript, IndexedDB, Gist sharing'],
+    ['RankMyStocks', 'Flask, MySQL, Auth0, AWS EC2/RDS'],
+    ['WFC biomes', 'C++, finite automata, procedural generation'],
+    ['RSA CTF', 'Cryptography, LaTeX, modular arithmetic'],
+  ];
+
   return (
     <div className="relative mx-auto w-full max-w-xl" data-reveal>
       <div className="dashboard-shell animate-float">
@@ -171,18 +201,18 @@ function HeroVisual() {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
               Portfolio Console
             </p>
-            <p className="mt-1 font-semibold text-ink">Current work snapshot</p>
+            <p className="mt-1 font-semibold text-ink">Evidence snapshot</p>
           </div>
           <span className="rounded-full bg-mint/15 px-3 py-1 text-sm font-semibold text-teal-700">
-            Capstone
+            Recruiter-ready
           </span>
         </div>
         <div className="grid gap-4 p-5">
-          <div className="grid grid-cols-3 gap-3">
-            {['IIIF 3D', 'Cloud Apps', 'C++ Systems'].map((item, index) => (
+          <div className="grid gap-3 sm:grid-cols-3">
+            {['IIIF editor', 'AWS deploys', 'C++ systems'].map((item, index) => (
               <div key={item} className="metric-tile">
                 <span className="text-xs text-slate-500">
-                  {['Focus', 'Full-stack', 'Algorithms'][index]}
+                  {['React + TS', 'Cloud + DB', 'OOP + theory'][index]}
                 </span>
                 <strong>{item}</strong>
               </div>
@@ -190,39 +220,26 @@ function HeroVisual() {
           </div>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-600">Evidence areas</span>
-              <span className="text-xs text-slate-500">UI + data + deployment</span>
+              <span className="text-sm font-semibold text-slate-600">Project proof</span>
+              <span className="text-xs text-slate-500">not self-rated</span>
             </div>
-            <div className="space-y-3">
-              {[
-                ['IIIF editor UX', 92],
-                ['AWS deployment', 86],
-                ['Database design', 80],
-                ['OOP algorithms', 76],
-              ].map(([label, width], index) => (
-                <div key={label}>
-                  <div className="mb-1 flex justify-between text-xs font-medium text-slate-500">
-                    <span>{label}</span>
-                    <span>{width}%</span>
-                  </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-white">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-ocean via-mint to-coral"
-                    style={{ width: `${width}%`, animationDelay: `${index * 0.2}s` }}
-                  />
-                </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {evidence.map(([label, proof]) => (
+                <div key={label} className="rounded-lg border border-slate-200 bg-white p-3">
+                  <p className="text-sm font-bold text-ink">{label}</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{proof}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-lg bg-ink p-4 text-white">
               <span className="text-xs text-white/60">Featured</span>
               <p className="mt-1 text-lg font-semibold">IIIF 3D Manifest Editor</p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-4">
-              <span className="text-xs text-slate-500">Supporting</span>
-              <p className="mt-1 text-lg font-semibold">RankMyStocks + WFC</p>
+              <span className="text-xs text-slate-500">Also strong</span>
+              <p className="mt-1 text-lg font-semibold">RankMyStocks</p>
             </div>
           </div>
         </div>
@@ -233,38 +250,33 @@ function HeroVisual() {
 
 function About() {
   const [expanded, setExpanded] = useState(false);
-  const featuredGroups = skillGroups.slice(0, 4);
-  const extraGroups = skillGroups.slice(4);
-  const visibleGroups = expanded ? skillGroups : featuredGroups;
+  const visibleGroups = expanded ? skillGroups : skillGroups.slice(0, 4);
 
   return (
-    <Section id="about" eyebrow="About" title="Developer with product and operations range.">
+    <Section id="about" eyebrow="About" title="Practical software across web, cloud, systems, and theory.">
       <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="space-y-5 text-lg leading-8 text-slate-600" data-reveal>
           <p>
             I am a Computer Science student at the University of Wisconsin-Stout
-            with an Applied Mathematics minor, building across full-stack web,
-            cloud deployment, databases, C++ systems, cryptography, and
-            theory-heavy computer science. This semester, my work has moved well
-            beyond small assignments into deployed products, capstone software,
-            formal proof writing, and algorithm-focused projects.
+            with a Mobile Application Development concentration and a Mathematics
+            minor. I enjoy building practical software that connects frontend,
+            backend, databases, and deployment instead of stopping at isolated
+            class exercises.
           </p>
           <p>
-            My current focus is a real-world IIIF 3D Manifest Editor and Viewer
-            capstone built with React, TypeScript, Vite, Tailwind, IndexedDB,
-            GitHub Gist workflows, and structured JSON. I also built and deployed
-            RankMyStocks, a full-stack stock ranking and portfolio platform using
-            React, Redux, Flask, MySQL, Auth0, AWS EC2/RDS, Nginx, Gunicorn,
-            HTTPS, and Google Cloud DNS.
+            My current focus is the IIIF 3D Manifest Editor and Viewer, a
+            real-world capstone tool built with React, TypeScript, Vite,
+            Tailwind, IndexedDB, GitHub Gist workflows, and structured IIIF JSON.
+            I also built RankMyStocks with React, Redux, Flask, MySQL, Auth0,
+            AWS EC2, AWS RDS, Nginx, Gunicorn, HTTPS, and Google Cloud DNS.
           </p>
           <p>
-            On the theory and systems side, I have been working with formal
-            languages and automata, DFA/NFA reasoning, context-free grammars,
-            LaTeX proof documentation, RSA cryptography, modular arithmetic,
-            finite automata, C++ procedural generation, and automation-style
-            simulators. I also serve as an Event Management Lead and core team
-            member in the UW-Stout AWS Cloud Club, helping organize cloud-focused
-            events and technical learning opportunities.
+            I have additional work in C++ systems, procedural generation, finite
+            automata, JavaFX, cryptography, formal languages, LaTeX proof
+            writing, and automation-style simulators. I am also an Event
+            Management Lead and core team member in the UW-Stout AWS Cloud Club,
+            helping organize cloud-focused events and technical learning
+            opportunities.
           </p>
         </div>
         <div className="skills-panel" data-reveal>
@@ -300,8 +312,7 @@ function About() {
           </div>
           {!expanded && (
             <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-500">
-              More depth available in tools and CS concepts, including CMake, SFML, Catch2,
-              cryptography, formal languages, and modular arithmetic.
+              More depth available in systems, algorithms, security, and math.
             </div>
           )}
         </div>
@@ -312,12 +323,12 @@ function About() {
 
 function getSkillIcon(name) {
   const icons = {
-    Languages: <Code2 size={18} />,
-    Web: <Braces size={18} />,
+    Frontend: <Code2 size={18} />,
+    'Backend and APIs': <Braces size={18} />,
     Databases: <Database size={18} />,
-    Cloud: <Cloud size={18} />,
-    Tools: <Wrench size={18} />,
-    Concepts: <Sigma size={18} />,
+    'Cloud and DevOps': <Cloud size={18} />,
+    'Systems and Algorithms': <Wrench size={18} />,
+    'Security and Math': <Sigma size={18} />,
   };
 
   return icons[name] ?? <BadgeCheck size={18} />;
@@ -325,12 +336,12 @@ function getSkillIcon(name) {
 
 function getSkillSummary(name) {
   const summaries = {
-    Languages: 'Daily programming stack',
-    Web: 'Frontend, APIs, and app structure',
-    Databases: 'Persistence and schema work',
-    Cloud: 'Production deployment experience',
-    Tools: 'Build, test, data, and AI tooling',
-    Concepts: 'Theory, systems, and security',
+    Frontend: 'Interfaces I have built with',
+    'Backend and APIs': 'API and auth experience',
+    Databases: 'Persistence used in projects',
+    'Cloud and DevOps': 'Production deployment evidence',
+    'Systems and Algorithms': 'C++ and theory-heavy builds',
+    'Security and Math': 'Coursework and CTF practice',
   };
 
   return summaries[name] ?? 'Technical focus area';
@@ -338,9 +349,9 @@ function getSkillSummary(name) {
 
 function Projects() {
   return (
-    <Section id="projects" eyebrow="Projects" title="IIIF 3D editing, simulation, and full-stack systems.">
+    <Section id="projects" eyebrow="Projects" title="Project proof for full-stack, cloud, systems, and security work.">
       <FeaturedProject project={featuredProject} />
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 grid gap-5 lg:grid-cols-2">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -352,7 +363,7 @@ function Projects() {
 function FeaturedProject({ project }) {
   return (
     <article className="project-feature" data-reveal>
-      <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr]">
         <div>
           <p className="section-eyebrow">Current Focus</p>
           <h3 className="mt-3 text-3xl font-bold tracking-normal sm:text-4xl">{project.title}</h3>
@@ -373,9 +384,10 @@ function FeaturedProject({ project }) {
             ))}
           </div>
         </div>
-        <div className="rounded-lg border border-slate-200 bg-white p-5">
+        <ProjectPreview project={project} />
+        <div className="rounded-lg border border-slate-200 bg-white p-5 lg:col-span-2">
           <h4 className="font-semibold">Technical highlights</h4>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
+          <ul className="mt-4 grid gap-3 text-sm leading-6 text-slate-600 md:grid-cols-2">
             {project.highlights.map((highlight) => (
               <li key={highlight} className="flex gap-3">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-coral" />
@@ -384,6 +396,9 @@ function FeaturedProject({ project }) {
             ))}
           </ul>
         </div>
+        <div className="lg:col-span-2">
+          <ProjectDetails project={project} defaultOpen />
+        </div>
       </div>
     </article>
   );
@@ -391,14 +406,15 @@ function FeaturedProject({ project }) {
 
 function ProjectCard({ project }) {
   return (
-    <article className="project-card" data-reveal>
+    <article className={project.featured ? 'project-card project-card-prominent' : 'project-card'} data-reveal>
       <div className="flex h-full flex-col">
         <div className="mb-5 h-2 rounded-full bg-gradient-to-r from-ocean via-mint to-coral" />
-        <h3 className="text-2xl font-bold">{project.title}</h3>
+        <ProjectPreview project={project} compact />
+        <h3 className="mt-5 text-2xl font-bold">{project.title}</h3>
         <p className="mt-3 flex-1 leading-7 text-slate-600">{project.summary}</p>
         {project.highlights.length > 0 && (
           <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-600">
-            {project.highlights.map((highlight) => (
+            {project.highlights.slice(0, project.featured ? 4 : 3).map((highlight) => (
               <li key={highlight} className="flex gap-2">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral" />
                 {highlight}
@@ -413,34 +429,129 @@ function ProjectCard({ project }) {
             </span>
           ))}
         </div>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-wrap gap-3">
           {project.links.length > 0 ? (
             project.links.map((link) => (
-              <ButtonLink key={link.href} href={link.href} variant="secondary" external>
+              <ButtonLink key={link.href} href={link.href} variant={link.primary ? 'primary' : 'secondary'} external>
                 {link.label}
                 <ArrowUpRight size={18} />
               </ButtonLink>
             ))
           ) : (
-            <span className="small-button text-slate-500">Private Repository</span>
+            <span className="small-button text-slate-500">Demo preview coming soon</span>
           )}
         </div>
+        <ProjectDetails project={project} />
       </div>
     </article>
   );
 }
 
+function ProjectPreview({ project, compact = false }) {
+  const media = project.media ?? [];
+
+  if (media.length === 0) {
+    return (
+      <div className={compact ? 'project-preview project-preview-compact' : 'project-preview'}>
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+          {project.preview}
+        </span>
+        <p className="mt-2 text-sm font-medium text-slate-600">
+          Visual slot ready for a screenshot, short demo GIF, or product mockup.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={compact ? 'project-preview project-preview-media project-preview-compact' : 'project-preview project-preview-media'}>
+      <div className={media.length > 1 ? 'project-media-grid' : 'project-media-single'}>
+        {media.map((item) => (
+          <figure key={item.src} className="project-media-frame">
+            {item.type === 'video' ? (
+              <video
+                src={item.src}
+                poster={item.poster}
+                aria-label={item.alt}
+                className="project-media"
+                controls
+                muted
+                playsInline
+                preload="metadata"
+              />
+            ) : (
+              <img src={item.src} alt={item.alt} className="project-media" loading="lazy" />
+            )}
+            {item.caption && <figcaption>{item.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProjectDetails({ project, defaultOpen = false }) {
+  return (
+    <details className="project-details" open={defaultOpen}>
+      <summary>View case study details</summary>
+      <div className="mt-4 grid gap-4 text-sm leading-6 text-slate-600">
+        <CaseStudyBlock title="Problem" content={project.problem} />
+        <CaseStudyBlock title="My Role" content={project.role} />
+        <CaseStudyBlock title="Key Features" items={project.features} />
+        <CaseStudyBlock title="Challenges Solved" items={project.challenges} />
+        <CaseStudyBlock title="What I Learned" content={project.learned} />
+        <CaseStudyBlock title="Future Improvements" items={project.future} />
+      </div>
+    </details>
+  );
+}
+
+function CaseStudyBlock({ title, content, items }) {
+  return (
+    <div>
+      <h4 className="font-bold text-ink">{title}</h4>
+      {content && <p className="mt-1">{content}</p>}
+      {items && (
+        <ul className="mt-2 space-y-1">
+          {items.map((item) => (
+            <li key={item} className="flex gap-2">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function Experience() {
+  return (
+    <Section id="experience" eyebrow="Experience" title="Capstone development and cloud club leadership.">
+      <Timeline title="Experience" icon={<BriefcaseBusiness size={21} />} items={experience} />
+    </Section>
+  );
+}
+
 function Resume() {
   return (
-    <Section id="resume" eyebrow="Resume" title="Experience shaped by software and leadership.">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <Timeline title="Experience" icon={<BriefcaseBusiness size={21} />} items={experience} />
-        <Timeline title="Education" icon={<GraduationCap size={21} />} items={education}>
-          <ButtonLink href="/resume.pdf" variant="primary" external>
-            Download Resume
-            <Download size={18} />
-          </ButtonLink>
-        </Timeline>
+    <Section id="resume" eyebrow="Resume" title="Resume focused on full-stack, cloud, and systems projects.">
+      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <Timeline title="Education" icon={<GraduationCap size={21} />} items={education} />
+        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
+          <h3 className="text-2xl font-bold">Download Resume</h3>
+          <p className="mt-4 leading-7 text-slate-600">
+            Resume focused on full-stack software engineering, cloud deployment,
+            database-backed applications, applied systems projects, and
+            theory-heavy computer science work.
+          </p>
+          <div className="mt-6">
+            <ButtonLink href="/resume.pdf" variant="primary" external>
+              Download Resume
+              <Download size={18} />
+            </ButtonLink>
+          </div>
+        </div>
       </div>
     </Section>
   );
@@ -469,7 +580,7 @@ function Timeline({ title, icon, items, children }) {
 
 function Contact() {
   return (
-    <Section id="contact" eyebrow="Contact" title="Let’s build something practical.">
+    <Section id="contact" eyebrow="Contact" title="Simple ways to reach me.">
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
           <h3 className="text-xl font-bold">Contact information</h3>
@@ -479,6 +590,8 @@ function Contact() {
                 <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-mist text-ocean">
                   {method.icon === 'mail' && <Mail size={20} />}
                   {method.icon === 'phone' && <Phone size={20} />}
+                  {method.icon === 'linkedin' && <Linkedin size={20} />}
+                  {method.icon === 'github' && <Github size={20} />}
                   {method.icon === 'map' && <MapPin size={20} />}
                 </span>
                 <span>
@@ -525,12 +638,12 @@ function Field({ label, name, type = 'text', multiline = false }) {
   const shared = 'mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-ocean focus:bg-white focus:ring-4 focus:ring-ocean/10';
 
   return (
-    <label className="mt-5 block text-sm font-semibold text-slate-600">
+    <label htmlFor={name} className="mt-5 block text-sm font-semibold text-slate-600">
       {label}
       {multiline ? (
-        <textarea name={name} rows="5" required className={`${shared} resize-none`} />
+        <textarea id={name} name={name} rows="5" required className={`${shared} resize-none`} />
       ) : (
-        <input name={name} type={type} required className={shared} />
+        <input id={name} name={name} type={type} required className={shared} />
       )}
     </label>
   );
@@ -563,7 +676,7 @@ function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white py-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-slate-500 sm:flex-row sm:px-6 lg:px-8">
-        <p>© 2026 Pradeep Pandey. All rights reserved.</p>
+        <p>Copyright 2026 Pradeep Pandey. All rights reserved.</p>
         <div className="flex gap-4">
           {socialLinks.map((link) => (
             <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="font-medium hover:text-ocean">
