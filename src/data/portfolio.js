@@ -59,17 +59,19 @@ export const socialLinks = [
 ];
 
 export const skillGroups = [
-  new SkillGroup('Languages', ['C#', 'C++', 'Python', 'Java', 'JavaScript', 'TypeScript', 'SQL', 'PHP', 'C']),
-  new SkillGroup('Frameworks', ['.NET 8', 'WinForms', 'React', 'Vite', 'FastAPI', 'Flask', 'Node.js', 'Tailwind', 'Redux']),
-  new SkillGroup('Databases', ['SQLite', 'MySQL', 'AWS RDS', 'Schema Design', 'Data Persistence', 'Query Debugging']),
-  new SkillGroup('Tools', ['Visual Studio', 'VS Code', 'Git/GitHub', 'CMake', 'SFML', 'Linux/Ubuntu', 'Nginx', 'Gunicorn', 'Postman']),
+  new SkillGroup('Languages', ['Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'SQL', 'R', 'LaTeX']),
+  new SkillGroup('Web', ['React', 'Vite', 'Redux', 'Tailwind CSS', 'REST APIs', 'Flask', 'Auth0', 'Node.js', 'HTML', 'CSS']),
+  new SkillGroup('Databases', ['MySQL', 'AWS RDS', 'IndexedDB', 'SQL Schema Design', 'Portfolio Transaction Storage', 'Local Browser Storage']),
+  new SkillGroup('Cloud', ['AWS EC2', 'AWS RDS', 'Google Cloud DNS', 'Ubuntu/Linux', 'Nginx', 'Gunicorn', 'systemd', 'Let’s Encrypt']),
+  new SkillGroup('Tools', ['Git', 'GitHub', 'CMake', 'SFML', 'Catch2', 'JavaFX', 'RStudio', 'yfinance', 'LangChain', 'OpenAI API']),
+  new SkillGroup('Concepts', ['Object-Oriented Programming', 'Data Structures', 'Algorithms', 'Operating Systems', 'Finite Automata', 'Cryptography', 'RSA', 'AES']),
 ];
 
 export const featuredProject = new Project({
-  title: 'IIIF 3D Manifest Editor',
+  title: 'IIIF 3D Manifest Editor and Viewer',
   summary:
-    'A real-world capstone project built as an open-source web editor for IIIF 3D resources. The app gives users a practical workspace for assembling 3D scenes, editing manifest resources, previewing structured JSON, and exporting IIIF 4.0-compatible manifests.',
-  stack: ['Real-World Capstone', 'React', 'TypeScript', 'Vite', 'Tailwind', 'JSON', 'IIIF Presentation API'],
+    'A real-world capstone digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests. The app gives users a practical React-based workspace for managing 3D resources and structured manifest JSON without hand-authoring every field.',
+  stack: ['Real-World Capstone', 'React', 'TypeScript', 'Vite', 'Tailwind', 'IndexedDB', 'GitHub Gist', 'IIIF Presentation API'],
   links: [
     {
       label: 'Live Site',
@@ -82,11 +84,12 @@ export const featuredProject = new Project({
     },
   ],
   highlights: [
-    'Built for a real IIIF 3D manifest workflow rather than a classroom-only demo.',
-    'Built workflows for adding and editing 3D models, images, cameras, lights, annotations, metadata, and transform controls.',
-    'Implemented JSON import and export so users can load existing manifests, inspect generated output, and download structured IIIF data.',
-    'Added live manifest preview and resource editing flows to make manifest authoring easier for non-technical users.',
-    'Worked in Agile Scrum sprints with user stories, sprint goals, implementation notes, and confirmation criteria.',
+    'Contributed to a React and Vite-based IIIF 3D editor for creating, editing, importing, exporting, and previewing structured 3D manifests.',
+    'Built UI features for managing 3D content resources, multilingual labels, transforms, technical resources, and live JSON previews.',
+    'Implemented browser persistence with IndexedDB to save manifest editor state locally.',
+    'Added GitHub Gist import/export workflows to make generated manifests easier to share, test, and review.',
+    'Improved UX with collapsible resource cards, clearer save dialogs, transform controls, and non-technical explanations.',
+    'Worked in sprint-based development using user stories, acceptance criteria, Agile planning, and team collaboration.',
   ],
 });
 
@@ -94,8 +97,8 @@ export const projects = [
   new Project({
     title: 'Fiber Optic Alignment and Test Station Simulator',
     summary:
-      'A personal desktop simulator for fiber optic alignment and station testing. It models sensor readings, validates test runs, and keeps completed station history inside the app.',
-    stack: ['C#', '.NET 8', 'WinForms', 'SQLite'],
+      'A GUI-based automation engineering simulator for fiber optic alignment and test station workflows. The project models one complete workflow from user input to validation to persistent test result storage.',
+    stack: ['C#', '.NET 8', 'WinForms', 'SQLite', 'Automation'],
     links: [
       {
         label: 'GitHub Repo',
@@ -103,65 +106,67 @@ export const projects = [
       },
     ],
     highlights: [
-      'Built a WinForms GUI for simulated fiber optic alignment and test result tracking.',
-      'Simulated X/Y alignment, optical power, and temperature readings for each station run.',
-      'Validated every run against pass/fail tolerance rules.',
-      'Stored completed runs, result status, and failure reasons in SQLite for later review.',
+      'Designed a GUI simulator focused on automation engineering requirements for alignment and station testing.',
+      'Planned validation logic for simulated alignment quality, test results, and pass/fail conditions.',
+      'Designed SQL-based storage for test runs, alignment values, validation results, and timestamps.',
+      'Modeled a simplified automation workflow connecting user input, test validation, and persistent result tracking.',
     ],
   }),
   new Project({
     title: 'RankMyStocks',
     summary:
-      'A deployed stock discovery and portfolio ranking app with React, Flask REST APIs, Auth0 login, MySQL persistence, and AWS cloud hosting.',
-    stack: ['React', 'Vite', 'Redux', 'Auth0', 'Flask', 'MySQL', 'AWS EC2/RDS'],
+      'A full-stack stock ranking and portfolio management platform using React, Redux, Flask, MySQL, Auth0, live market data, and production AWS deployment.',
+    stack: ['React', 'Vite', 'Redux', 'Flask', 'MySQL', 'Auth0', 'AWS EC2/RDS', 'Nginx'],
     links: [
       { label: 'Live Demo', href: 'https://www.rankmystocks.com' },
       { label: 'GitHub Repo', href: 'https://github.com/pandeyp1426' },
     ],
     highlights: [
-      'Developed and deployed a full-stack stock discovery and portfolio ranking app.',
-      'Built React screens backed by Flask REST APIs, Auth0 authentication, and MySQL persistence.',
-      'Designed portfolio, transaction, and snapshot tables for persistent user data.',
-      'Migrated persistence to AWS RDS and deployed the backend on EC2 using Ubuntu, Nginx, and Gunicorn.',
+      'Built REST API endpoints for stock comparison, portfolio creation, transaction tracking, and daily market news.',
+      'Implemented MySQL tables for portfolios, stocks, transactions, and portfolio snapshots to track invested value, current value, and percentage change.',
+      'Deployed on AWS EC2 with Gunicorn, Nginx, HTTPS using Let’s Encrypt, and AWS RDS for persistent cloud database storage.',
+      'Integrated yfinance for live stock pricing and optional AI-generated market summaries using LangChain and the OpenAI API.',
+      'Configured Google Cloud DNS for a production domain and resolved CORS, Node version, SSL, and reverse proxy deployment issues.',
     ],
   }),
   new Project({
     title: 'WFC Biome Generator',
     summary:
-      'A C++ and SFML desktop app that generates biome maps through Wave Function Collapse-style constraint propagation and DFA-based adjacency rules.',
-    stack: ['C++', 'SFML', 'CMake', 'OOP', 'Procedural Generation'],
+      'A C++ procedural map generator using Wave Function Collapse and finite automata-based biome adjacency rules.',
+    stack: ['C++', 'SFML', 'CMake', 'Catch2', 'OOP', 'Finite Automata'],
     links: [{ label: 'GitHub Repo', href: 'https://github.com/pandeyp1426/WFCBiomeGenerator' }],
     highlights: [
-      'Generated biome maps with constraint propagation and adjacency rules.',
-      'Structured biome rules, cells, entropy updates, rendering, and regeneration controls with object-oriented design.',
-      'Set up the project with CMake and SFML for a desktop rendering workflow.',
+      'Designed a BiomeDFA class to validate allowed neighbor transitions between sea, coast, land, mountains, and swamps.',
+      'Used entropy-based cell selection with priority logic to collapse the lowest-entropy cells first.',
+      'Planned backtracking and constraint propagation to handle invalid biome configurations.',
+      'Set up a C++ project structure with CMake, SFML visualization, and Catch2 testing.',
     ],
   }),
   new Project({
-    title: 'Cryptography CTF Challenges Workspace',
+    title: 'RSA Cryptography CTF Challenge',
     summary:
-      'A full-stack cryptography CTF solving workspace with challenge input, file upload parsing, streamed solve steps, progressive hints, flag detection, and SQLite solve history.',
-    stack: ['React', 'Vite', 'FastAPI', 'Python', 'SQLite', 'RSA'],
+      'A number theory and security project focused on RSA-based CTF challenges, weak-key vulnerabilities, and clear solution writeups.',
+    stack: ['Python', 'RSA', 'Cryptography', 'LaTeX', 'Number Theory'],
     links: [{ label: 'GitHub Repo', href: 'https://github.com/pandeyp1426/Cryptography_CTF_CHALLENGES' }],
     highlights: [
-      'Built challenge input, file upload parsing, streamed solve steps, progressive hints, and flag detection.',
-      'Persisted solve history in SQLite for later review.',
-      'Implemented RSA helper logic for shared-prime attacks, modular inverse, and GCD-based factoring.',
-      'Added classroom-style crypto writeups and guided solve output for practice.',
+      'Created RSA-based CTF challenges involving weak key vulnerabilities such as shared prime factors and Wiener’s attack.',
+      'Wrote LaTeX problem statements and solution walkthroughs explaining the math behind RSA attacks.',
+      'Applied modular arithmetic, the Euclidean algorithm, continued fractions, and public-key cryptography concepts.',
+      'Practiced classical and modern cryptographic systems including shift ciphers, affine ciphers, Vigenère, AES, DES, SPN, and Feistel networks.',
     ],
   }),
 ];
 
 export const experience = [
   new TimelineItem(
-    'Capstone Developer, IIIF 3D Manifest Editor',
-    'Real-world capstone project | React, TypeScript, Vite, Tailwind, JSON, IIIF Presentation API | 2026 - Present',
-    'Working on a real-world capstone 3D viewing and manifest editing website for IIIF resources. Built workflows for adding 3D models, images, cameras, lights, annotations, metadata, and transform controls, plus JSON import/export, live preview, resource editing, and exportable IIIF 4.0 manifests.',
+    'Capstone Developer, IIIF 3D Manifest Editor and Viewer',
+    'Real-world capstone project | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF Presentation API | 2026 - Present',
+    'Contributing to a React-based digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests. Built resource management UI, live JSON previews, local browser persistence, GitHub Gist sharing workflows, and clearer user-facing explanations for non-technical users.',
   ),
   new TimelineItem(
-    'Event Manager and AWS Core Team Member',
-    'UW-Stout AWS Club | Dec. 2025 - Present',
-    'Coordinate technical workshops, student mentoring, event logistics, and hands-on learning around AWS services, Terraform, EC2, S3, RDS, and cloud deployment.',
+    'Event Management Lead / Core Team Member',
+    'UW-Stout AWS Cloud Club | Dec. 2025 - Present',
+    'Help plan and coordinate cloud-focused student events, including room logistics, outreach, speaker coordination, and student engagement around AWS services, cloud computing, and professional development.',
   ),
 ];
 
