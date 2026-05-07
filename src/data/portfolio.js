@@ -97,7 +97,7 @@ export const skillGroups = [
 export const featuredProject = new Project({
   title: 'IIIF 3D Manifest Editor and Viewer',
   summary:
-    'A real-world capstone digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests through a React and TypeScript interface.',
+    'A team-built capstone digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests through a React and TypeScript interface.',
   stack: ['React', 'TypeScript', 'Vite', 'Tailwind', 'IndexedDB', 'GitHub Gist', 'IIIF JSON'],
   links: [
     {
@@ -111,28 +111,32 @@ export const featuredProject = new Project({
     },
   ],
   highlights: [
-    'Built UI features for managing 3D content resources, multilingual labels, transforms, technical resources, and live JSON previews.',
-    'Implemented browser persistence with IndexedDB to save manifest editor state locally.',
-    'Added GitHub Gist import/export workflows to make generated manifests easier to share, test, and review.',
-    'Improved UX with collapsible resource cards, clearer save dialogs, transform controls, and non-technical explanations.',
+    'Contributed as part of a six-person capstone team with Jacob, Thomas, Simon, Grant, and Trent.',
+    'Built React UI features for managing 3D content resources, multilingual labels, transforms, technical resources, and live JSON previews.',
+    'Implemented browser persistence with IndexedDB and helped add GitHub Gist import/export workflows for sharing, testing, and review.',
+    'Worked through Agile/Scrum ceremonies including sprint planning, standups, sprint reviews, retrospectives, and pull request review cycles.',
+    'Incorporated feedback from IIIF mentors Glen Robson and Prof. Dr. Rita Gautschy, along with UW-Stout faculty mentorship from Dr. Michael Tetzlaff and Dr. Tyler Thomas.',
+    'Preparing the project to be presented as open-source work at an upcoming IIIF conference.',
   ],
   problem:
     'IIIF 3D manifests are structured JSON documents that can be difficult to author by hand, especially when users need to manage resources, labels, transforms, previews, and exportable output.',
   role:
-    'Capstone developer contributing React UI, data editing workflows, local persistence, GitHub Gist sharing, and sprint-based documentation.',
+    'Capstone developer on a six-person team, contributing React UI, data editing workflows, local persistence, GitHub Gist sharing, sprint documentation, and pull request review feedback.',
   features: [
     'Resource editing for 3D content, technical resources, multilingual labels, transforms, and metadata.',
     'Live JSON preview so users can inspect generated manifest output while editing.',
     'IndexedDB persistence for saving editor state in the browser.',
     'GitHub Gist import/export workflows for sharing and testing manifests.',
+    'Open-source presentation preparation for an upcoming IIIF conference.',
   ],
   challenges: [
     'Making a technical standards-based JSON workflow understandable for non-technical users.',
     'Keeping imported data, editor state, and live preview output aligned.',
-    'Coordinating team work through user stories, acceptance criteria, sprint goals, and reviews.',
+    'Coordinating team work through user stories, acceptance criteria, sprint goals, pull requests, sprint reviews, and retrospectives.',
+    'Balancing team implementation decisions with feedback from IIIF mentors and UW-Stout faculty advisors.',
   ],
   learned:
-    'I learned how to turn a standards-driven data model into a usable editor and how important clear UX is when software serves users outside a developer audience.',
+    'I learned how a real software team evolves a product over multiple sprints: breaking work into user stories, reviewing code, responding to mentor feedback, and turning a standards-driven data model into a usable editor.',
   future: [
     'Add stronger validation for malformed resources.',
     'Improve preview coverage for complex 3D scenes.',
@@ -384,9 +388,9 @@ export const projects = [
 
 export const experience = [
   new TimelineItem(
-    'Capstone Developer, IIIF 3D Manifest Editor and Viewer',
-    'Real-world capstone project | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF JSON | 2026 - Present',
-    'Contributing to a React-based digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests. Built resource management UI, live JSON previews, local browser persistence, GitHub Gist sharing workflows, and clearer user-facing explanations for non-technical users.',
+    'Real-Life Capstone Developer, IIIF 3D Manifest Editor and Viewer',
+    'Team capstone project | Agile/Scrum | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF JSON | 2026 - Present',
+    'Collaborating with Jacob, Thomas, Simon, Grant, and Trent on a React-based digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests. Contributed resource management UI, live JSON previews, local browser persistence, GitHub Gist sharing workflows, and clearer user-facing explanations for non-technical users. Worked through sprint planning, standups, retrospectives, pull request reviews, IIIF mentor feedback from Glen Robson and Prof. Dr. Rita Gautschy, UW-Stout faculty guidance from Dr. Michael Tetzlaff and Dr. Tyler Thomas, open-source presentation preparation for an upcoming IIIF conference, and iterative software evolution focused on maintainability and future upgrades.',
   ),
   new TimelineItem(
     'Event Management Lead / Core Team Member',

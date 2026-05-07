@@ -188,61 +188,93 @@ function Hero() {
 }
 
 function HeroVisual() {
-  const evidence = [
-    ['IIIF editor', 'React, TypeScript, IndexedDB, Gist sharing'],
-    ['RankMyStocks', 'Flask, MySQL, Auth0, AWS EC2/RDS'],
-    ['WFC biomes', 'C++, finite automata, procedural generation'],
-    ['RSA CTF', 'Cryptography, LaTeX, modular arithmetic'],
-  ];
+  const tags = ['WFC biomes', 'RSA CTF', 'IIIF editor', 'RankMyStocks'];
+  const nodes = ['q0', 'q1', 'q?', 'halt'];
 
   return (
     <div className="relative mx-auto w-full max-w-xl" data-reveal>
-      <div className="dashboard-shell animate-float">
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">
-              Portfolio Console
-            </p>
-            <p className="mt-1 font-semibold text-ink">Evidence snapshot</p>
-          </div>
-          <span className="rounded-full bg-mint/15 px-3 py-1 text-sm font-semibold text-teal-700">
-            Recruiter-ready
-          </span>
+      <div className="theory-visual animate-float" aria-label="Computability note">
+        <div className="theory-glow theory-glow-a" />
+        <div className="theory-glow theory-glow-b" />
+
+        <div className="theory-topline">
+          <p>// what theory taught me about building things</p>
         </div>
-        <div className="grid gap-4 p-5">
-          <div className="grid gap-3 sm:grid-cols-3">
-            {['IIIF editor', 'AWS deploys', 'C++ systems'].map((item, index) => (
-              <div key={item} className="metric-tile">
-                <span className="text-xs text-slate-500">
-                  {['React + TS', 'Cloud + DB', 'OOP + theory'][index]}
-                </span>
-                <strong>{item}</strong>
-              </div>
-            ))}
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-600">Project proof</span>
-              <span className="text-xs text-slate-500">not self-rated</span>
+
+        <div className="relative z-10 mt-5 grid gap-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="max-w-md text-3xl font-bold leading-tight text-ink">
+                Some problems are hard.
+                <span className="block text-ocean">Some are harder than hard.</span>
+              </h2>
+              <p className="mt-4 max-w-lg text-sm font-semibold leading-6 text-slate-600">
+                My professor mentioned 745, 744, and 43-state Turing machines
+                tied to ZFC, the halting problem, and Goldbach. I sat with that
+                for a while. Then I opened my editor.
+              </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {evidence.map(([label, proof]) => (
-                <div key={label} className="rounded-lg border border-slate-200 bg-white p-3">
-                  <p className="text-sm font-bold text-ink">{label}</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">{proof}</p>
+            <span className="hidden h-12 w-12 shrink-0 place-items-center rounded-lg bg-ink text-white shadow-lift sm:grid">
+              <Sigma size={23} />
+            </span>
+          </div>
+
+          <div className="machine-stage">
+            <div className="machine-ribbon">
+              <span>ZFC?</span>
+              <span>745</span>
+              <span>HALT</span>
+              <span>43</span>
+              <span>?</span>
+            </div>
+
+            <div className="automata-path">
+              {nodes.map((node, index) => (
+                <div key={node} className={`automata-node automata-node-${index + 1}`}>
+                  {node}
                 </div>
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="relative z-10 mt-6 border-t border-slate-200 pt-5">
           <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-lg bg-ink p-4 text-white">
-              <span className="text-xs text-white/60">Featured</span>
-              <p className="mt-1 text-lg font-semibold">IIIF 3D Manifest Editor</p>
+            <div className="theory-stat">
+              <p className="font-mono text-xs text-ocean">states: 745</p>
+              <p className="mt-2 text-lg font-bold text-ink">Halting problem</p>
+              <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">
+                If foundations crack, a machine can answer what code usually cannot.
+              </p>
             </div>
-            <div className="rounded-lg border border-slate-200 bg-white p-4">
-              <span className="text-xs text-slate-500">Also strong</span>
-              <p className="mt-1 text-lg font-semibold">RankMyStocks</p>
+            <div className="theory-stat">
+              <p className="font-mono text-xs text-coral">states: 43</p>
+              <p className="mt-2 text-lg font-bold text-ink">Goldbach falls</p>
+              <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">
+                A tiny state count can carry a question old enough to feel unreal.
+              </p>
             </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-5 border-t border-slate-200 pt-5">
+          <p className="text-sm font-semibold leading-6 text-slate-700">
+            That kind of thinking, what can be computed and what should be
+            simplified, shapes every project I build.
+          </p>
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span key={tag} className="theory-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <p className="theory-question">
+              if machine halts, what changes?
+              <ArrowUpRight size={15} />
+            </p>
           </div>
         </div>
       </div>
@@ -282,15 +314,11 @@ function About() {
           </p>
         </div>
         <div className="skills-panel" data-reveal>
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-6">
             <div>
               <p className="section-eyebrow">Toolkit</p>
               <h3 className="mt-2 text-2xl font-bold">Skills & Tools</h3>
             </div>
-            <button type="button" className="small-button" onClick={() => setExpanded((value) => !value)}>
-              {expanded ? 'Show Focus' : 'Show All'}
-              <ChevronDown size={16} className={expanded ? 'rotate-180 transition' : 'transition'} />
-            </button>
           </div>
           <div className="grid gap-4">
             {visibleGroups.map((group) => (
@@ -312,11 +340,17 @@ function About() {
               </div>
             ))}
           </div>
-          {!expanded && (
-            <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-500">
-              More depth available in systems, algorithms, security, and math.
-            </div>
-          )}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3">
+            {!expanded && (
+              <p className="text-sm font-medium text-slate-500">
+                More depth available in systems, algorithms, security, and math.
+              </p>
+            )}
+            <button type="button" className="small-button ml-auto bg-white" onClick={() => setExpanded((value) => !value)}>
+              {expanded ? 'Show Less' : 'Show More'}
+              <ChevronDown size={16} className={expanded ? 'rotate-180 transition' : 'transition'} />
+            </button>
+          </div>
         </div>
       </div>
     </Section>
@@ -351,7 +385,7 @@ function getSkillSummary(name) {
 
 function Projects() {
   return (
-    <Section id="projects" eyebrow="Projects" title="Project proof for full-stack, cloud, systems, and security work.">
+    <Section id="projects" eyebrow="Projects" title="Some cool projects I worked on.">
       <FeaturedProject project={featuredProject} />
       <div className="mt-8 grid gap-5 lg:grid-cols-2">
         {projects.map((project) => (
@@ -537,15 +571,14 @@ function Experience() {
 
 function Resume() {
   return (
-    <Section id="resume" eyebrow="Resume" title="Resume focused on full-stack, cloud, and systems projects.">
+    <Section id="resume" eyebrow="Resume" title="A concise view of my software work.">
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <Timeline title="Education" icon={<GraduationCap size={21} />} items={education} />
         <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
           <h3 className="text-2xl font-bold">Download Resume</h3>
           <p className="mt-4 leading-7 text-slate-600">
-            Resume focused on full-stack software engineering, cloud deployment,
-            database-backed applications, applied systems projects, and
-            theory-heavy computer science work.
+            A quick summary of my projects, experience, education, and technical
+            background.
           </p>
           <div className="mt-6">
             <ButtonLink href={assetPath('resume.pdf')} variant="primary" external>
