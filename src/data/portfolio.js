@@ -27,6 +27,7 @@ class Project {
     future = [],
     media = [],
     featured = false,
+    completedAt = '',
   }) {
     this.title = title;
     this.summary = summary;
@@ -41,6 +42,7 @@ class Project {
     this.future = future;
     this.media = media;
     this.featured = featured;
+    this.completedAt = completedAt;
   }
 }
 
@@ -74,7 +76,7 @@ export const navItems = [
   new NavigationItem('About', '#about'),
   new NavigationItem('Projects', '#projects'),
   new NavigationItem('Experience', '#experience'),
-  new NavigationItem('Resume', '#resume'),
+  new NavigationItem('Education', '#education'),
   new NavigationItem('Contact', '#contact'),
 ];
 
@@ -94,8 +96,9 @@ export const skillGroups = [
 
 export const featuredProject = new Project({
   title: 'IIIF 3D Manifest Editor and Viewer',
+  completedAt: 'May 2026',
   summary:
-    'A team-built capstone digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests through a React and TypeScript interface.',
+    'A team-built capstone digital humanities tool, completed in May 2026, for creating, editing, importing, exporting, and previewing IIIF 3D manifests through a React and TypeScript interface.',
   stack: ['React', 'TypeScript', 'Vite', 'Tailwind', 'IndexedDB', 'GitHub Gist', 'IIIF JSON'],
   links: [
     {
@@ -114,18 +117,18 @@ export const featuredProject = new Project({
     'Implemented browser persistence with IndexedDB and helped add GitHub Gist import/export workflows for sharing, testing, and review.',
     'Worked through Agile/Scrum ceremonies including sprint planning, standups, sprint reviews, retrospectives, and pull request review cycles.',
     'Incorporated feedback from IIIF mentors Glen Robson and Prof. Dr. Rita Gautschy, along with UW-Stout faculty mentorship from Dr. Michael Tetzlaff and Dr. Tyler Thomas.',
-    'Preparing the project to be presented as open-source work at an upcoming IIIF conference.',
+    'Contributed to preparing the project for an open-source IIIF conference presentation.',
   ],
   problem:
     'IIIF 3D manifests are structured JSON documents that can be difficult to author by hand, especially when users need to manage resources, labels, transforms, previews, and exportable output.',
   role:
-    'Capstone developer on a six-person team, contributing React UI, data editing workflows, local persistence, GitHub Gist sharing, sprint documentation, and pull request review feedback.',
+    'Served as a capstone developer on a six-person team, contributing React UI, data editing workflows, local persistence, GitHub Gist sharing, sprint documentation, and pull request review feedback.',
   features: [
     'Resource editing for 3D content, technical resources, multilingual labels, transforms, and metadata.',
     'Live JSON preview so users can inspect generated manifest output while editing.',
     'IndexedDB persistence for saving editor state in the browser.',
     'GitHub Gist import/export workflows for sharing and testing manifests.',
-    'Open-source presentation preparation for an upcoming IIIF conference.',
+    'Open-source IIIF conference presentation preparation.',
   ],
   challenges: [
     'Making a technical standards-based JSON workflow understandable for non-technical users.',
@@ -355,8 +358,8 @@ export const experience = [
   ),
   new TimelineItem(
     'Real-Life Capstone Developer, IIIF 3D Manifest Editor and Viewer',
-    'Team capstone project | Agile/Scrum | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF JSON | 2026 - Present',
-    'Collaborating with Jacob, Thomas, Simon, Grant, and Trent on a React-based digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests. Contributed resource management UI, live JSON previews, local browser persistence, GitHub Gist sharing workflows, and clearer user-facing explanations for non-technical users. Worked through sprint planning, standups, retrospectives, pull request reviews, IIIF mentor feedback from Glen Robson and Prof. Dr. Rita Gautschy, UW-Stout faculty guidance from Dr. Michael Tetzlaff and Dr. Tyler Thomas, open-source presentation preparation for an upcoming IIIF conference, and iterative software evolution focused on maintainability and future upgrades.',
+    'Team capstone project | Agile/Scrum | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF JSON | Completed May 2026',
+    'Collaborated with Jacob, Thomas, Simon, Grant, and Trent on a React-based digital humanities tool for creating, editing, importing, exporting, and previewing IIIF 3D manifests, completed in May 2026. Contributed resource management UI, live JSON previews, local browser persistence, GitHub Gist sharing workflows, and clearer user-facing explanations for non-technical users. Worked through sprint planning, standups, retrospectives, pull request reviews, IIIF mentor feedback from Glen Robson and Prof. Dr. Rita Gautschy, UW-Stout faculty guidance from Dr. Michael Tetzlaff and Dr. Tyler Thomas, preparation for an open-source IIIF conference presentation, and iterative software evolution focused on maintainability and future upgrades.',
   ),
   new TimelineItem(
     'Event Management Lead / Core Team Member',
@@ -369,7 +372,7 @@ export const education = [
   new TimelineItem(
     'B.S. in Computer Science',
     'University of Wisconsin-Stout | Expected Dec 2026',
-    'Concentration in Mobile Application Development with a Mathematics minor.',
+    'Concentration in Mobile Application Development with a Mathematics minor. GPA: 3.5/4.0.',
   ),
 ];
 

@@ -1,714 +1,211 @@
-import {
-  ArrowUpRight,
-  BadgeCheck,
-  Braces,
-  BriefcaseBusiness,
-  ChevronDown,
-  Cloud,
-  Code2,
-  Database,
-  Download,
-  Github,
-  GraduationCap,
-  Linkedin,
-  Mail,
-  MapPin,
-  Menu,
-  Phone,
-  Sigma,
-  Sparkles,
-  Wrench,
-  X,
-} from 'lucide-react';
+import { ArrowDown, ArrowUpRight, ChevronDown, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import {
-  contactMethods,
-  education,
-  experience,
-  featuredProject,
-  navItems,
-  projects,
-  skillGroups,
-  socialLinks,
-} from './data/portfolio';
+import { contactMethods, education, experience, navItems, socialLinks } from './data/portfolio';
+import Projects from './components/Projects';
+import CursorSpotlight from './components/CursorSpotlight';
 
 const assetPath = (fileName) => `${import.meta.env.BASE_URL}${fileName}`;
 
-function useScrollReveal() {
-  useEffect(() => {
-    const elements = document.querySelectorAll('[data-reveal]');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.16 },
-    );
+function useActiveSection() {
+  const [active, setActive] = useState('#about');
 
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const cutoff = Math.min(window.innerHeight * 0.3, 240);
+      let current = navItems[0].href;
+      navItems.forEach(({ href }) => {
+        const section = document.querySelector(href);
+        if (section && section.getBoundingClientRect().top <= cutoff) current = href;
+      });
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 16) current = '#contact';
+      setActive(current);
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      window.removeEventListener('hashchange', schedule);
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
+
+  return [active, setActive];
 }
 
 function App() {
-  useScrollReveal();
-
+  const [active, setActive] = useActiveSection();
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-ink">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Experience />
-        <Resume />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <CursorSpotlight />
+      <div className="portfolio-shell" id="home">
+        <Profile active={active} onNavigate={setActive} />
+        <main id="main" className="content-column" tabIndex={-1}>
+          <About />
+          <Projects />
+          <Experience />
+          <Education />
+          <Contact />
+          <Footer />
+        </main>
+      </div>
+    </>
   );
 }
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
-
+function Profile({ active, onNavigate }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/85 shadow-sm backdrop-blur-xl">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
-        <a href="#home" className="font-semibold tracking-tight text-ink">
-          Pradeep Pandey
-        </a>
-        <div className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="nav-link">
-              {item.label}
-            </a>
-          ))}
-          <span className="mx-2 h-6 w-px bg-slate-200" />
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              aria-label={link.label}
-              target="_blank"
-              rel="noreferrer"
-              className="icon-button h-9 w-9"
-            >
-              {link.label === 'GitHub' ? <Github size={18} /> : <Linkedin size={18} />}
-            </a>
-          ))}
+    <header className="profile-column">
+      <div className="profile-intro">
+        <div className="profile-topline">
+          <a className="monogram" href="#home" aria-label="Pradeep Pandey, back to top">pp<span>.</span></a>
         </div>
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded={open}
-          className="icon-button md:hidden"
-          onClick={() => setOpen((current) => !current)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <h1 className="profile-name"><a href="#home">Pradeep<br />Pandey<span>.</span></a></h1>
+        <p className="profile-role">Software developer &amp;<br />Computer Science student.</p>
+        <p className="profile-description">I build useful software, from the interface to the systems behind it.</p>
+        <a className="text-link profile-project-link" href="#projects">Explore my work <ArrowDown size={16} aria-hidden="true" /></a>
+      </div>
+      <nav className="section-nav" aria-label="Primary navigation">
+        {navItems.map((item) => (
+          <a key={item.href} href={item.href} className={active === item.href ? 'section-nav-link is-active' : 'section-nav-link'} aria-current={active === item.href ? 'location' : undefined} onClick={() => onNavigate(item.href)}>
+            <span className="nav-rule" aria-hidden="true" />
+            <span>{item.label}</span>
+          </a>
+        ))}
       </nav>
-      {open && (
-        <div className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="block rounded-md px-3 py-2 text-sm font-medium text-slate-700"
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
+      <div className="profile-footer">
+        <div className="profile-links">
+          {socialLinks.map((link) => (
+            <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="social-link" aria-label={link.label}>
+              {link.label === 'GitHub' ? <Github size={21} aria-hidden="true" /> : <Linkedin size={21} aria-hidden="true" />}
             </a>
           ))}
-          <div className="mt-3 flex gap-3 px-3">
-            {socialLinks.map((link) => (
-              <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="button-secondary py-2">
-                {link.label}
-              </a>
-            ))}
-          </div>
+          <a className="social-link" href={contactMethods.find((method) => method.icon === 'mail').href} aria-label="Email Pradeep"><Mail size={21} aria-hidden="true" /></a>
+          <span className="social-divider" aria-hidden="true" />
+          <a className="text-link resume-link" href={assetPath('resume.pdf')} target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={16} aria-hidden="true" /></a>
         </div>
-      )}
+        <p className="profile-location"><MapPin size={13} aria-hidden="true" /> Wisconsin, USA <span aria-hidden="true">·</span> UW–Stout</p>
+      </div>
     </header>
   );
 }
 
-function Hero() {
-  return (
-    <section id="home" className="relative overflow-hidden pt-28">
-      <div className="absolute inset-0 hero-grid" />
-      <div className="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-12 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-        <div data-reveal>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm">
-            <Sparkles size={16} className="text-coral" />
-            Computer Science student building deployed software
-          </div>
-          <h1 className="max-w-4xl text-4xl font-bold leading-[1.06] tracking-normal text-ink sm:text-6xl lg:text-7xl">
-            I build full-stack, cloud-deployed, and systems-focused software.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            I am Pradeep Pandey, a UW-Stout Computer Science student working
-            with React, TypeScript, Flask, AWS, databases, and C++ systems. My
-            strongest work connects usable interfaces with backend, deployment,
-            data, and algorithmic problems.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="#projects" variant="primary">
-              View Projects
-              <ArrowUpRight size={18} />
-            </ButtonLink>
-            <ButtonLink href={assetPath('resume.pdf')} variant="secondary" external>
-              Download Resume
-              <Download size={18} />
-            </ButtonLink>
-          </div>
-          <div className="mt-8 flex items-center gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                aria-label={link.label}
-                target="_blank"
-                rel="noreferrer"
-                className="icon-button"
-              >
-                {link.label === 'GitHub' ? <Github size={20} /> : <Linkedin size={20} />}
-              </a>
-            ))}
-          </div>
-        </div>
-        <HeroVisual />
-      </div>
-    </section>
-  );
-}
-
-function HeroVisual() {
-  const tags = ['WFC biomes', 'RSA CTF', 'IIIF editor', 'RankMyStocks'];
-  const nodes = ['q0', 'q1', 'q?', 'halt'];
-
-  return (
-    <div className="relative mx-auto w-full max-w-xl" data-reveal>
-      <div className="theory-visual animate-float" aria-label="Computability note">
-        <div className="theory-glow theory-glow-a" />
-        <div className="theory-glow theory-glow-b" />
-
-        <div className="theory-topline">
-          <p>// what theory taught me about building things</p>
-        </div>
-
-        <div className="relative z-10 mt-5 grid gap-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="max-w-md text-3xl font-bold leading-tight text-ink">
-                Some problems are hard.
-                <span className="block text-ocean">Some are harder than hard.</span>
-              </h2>
-              <p className="mt-4 max-w-lg text-sm font-semibold leading-6 text-slate-600">
-                My professor mentioned 745, 744, and 43-state Turing machines
-                tied to ZFC, the halting problem, and Goldbach. I sat with that
-                for a while. Then I opened my editor.
-              </p>
-            </div>
-            <span className="hidden h-12 w-12 shrink-0 place-items-center rounded-lg bg-ink text-white shadow-lift sm:grid">
-              <Sigma size={23} />
-            </span>
-          </div>
-
-          <div className="machine-stage">
-            <div className="machine-ribbon">
-              <span>ZFC?</span>
-              <span>745</span>
-              <span>HALT</span>
-              <span>43</span>
-              <span>?</span>
-            </div>
-
-            <div className="automata-path">
-              {nodes.map((node, index) => (
-                <div key={node} className={`automata-node automata-node-${index + 1}`}>
-                  {node}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-10 mt-6 border-t border-slate-200 pt-5">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="theory-stat">
-              <p className="font-mono text-xs text-ocean">states: 745</p>
-              <p className="mt-2 text-lg font-bold text-ink">Halting problem</p>
-              <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">
-                If foundations crack, a machine can answer what code usually cannot.
-              </p>
-            </div>
-            <div className="theory-stat">
-              <p className="font-mono text-xs text-coral">states: 43</p>
-              <p className="mt-2 text-lg font-bold text-ink">Goldbach falls</p>
-              <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">
-                A tiny state count can carry a question old enough to feel unreal.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-10 mt-5 border-t border-slate-200 pt-5">
-          <p className="text-sm font-semibold leading-6 text-slate-700">
-            That kind of thinking, what can be computed and what should be
-            simplified, shapes every project I build.
-          </p>
-
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span key={tag} className="theory-tag">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <p className="theory-question">
-              if machine halts, what changes?
-              <ArrowUpRight size={15} />
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+function SectionHeading({ id, children }) {
+  return <div className="section-heading"><h2 id={id}>{children}</h2></div>;
 }
 
 function About() {
-  const [expanded, setExpanded] = useState(false);
-  const visibleGroups = expanded ? skillGroups : skillGroups.slice(0, 4);
-
   return (
-    <Section id="about" eyebrow="About" title="Practical software across web, cloud, systems, and theory.">
-      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="space-y-5 text-lg leading-8 text-slate-600" data-reveal>
-          <p>
-            I am a Computer Science student at the University of Wisconsin-Stout
-            with a Mobile Application Development concentration and a Mathematics
-            minor. I enjoy building practical software that connects frontend,
-            backend, databases, and deployment instead of stopping at isolated
-            class exercises.
-          </p>
-          <p>
-            My current focus is the IIIF 3D Manifest Editor and Viewer, a
-            real-world capstone tool built with React, TypeScript, Vite,
-            Tailwind, IndexedDB, GitHub Gist workflows, and structured IIIF JSON.
-            I also built RankMyStocks with React, Redux, Flask, MySQL, Auth0,
-            AWS EC2, AWS RDS, Nginx, Gunicorn, HTTPS, and Google Cloud DNS.
-          </p>
-          <p>
-            I have additional work in C++ systems, procedural generation, finite
-            automata, cryptography, formal languages, LaTeX proof
-            writing, and automation-style simulators. I am also an Event
-            Management Lead and core team member in the UW-Stout AWS Cloud Club,
-            helping organize cloud-focused events and technical learning
-            opportunities.
-          </p>
-        </div>
-        <div className="skills-panel" data-reveal>
-          <div className="mb-6">
-            <div>
-              <p className="section-eyebrow">Toolkit</p>
-              <h3 className="mt-2 text-2xl font-bold">Skills & Tools</h3>
-            </div>
-          </div>
-          <div className="grid gap-4">
-            {visibleGroups.map((group) => (
-              <div key={group.name} className="skill-group-card">
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="skill-group-icon">{getSkillIcon(group.name)}</span>
-                  <div>
-                    <h4 className="font-bold text-ink">{group.name}</h4>
-                    <p className="text-xs font-medium text-slate-500">{getSkillSummary(group.name)}</p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((skill) => (
-                    <span key={skill} className="skill-pill">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 px-4 py-3">
-            {!expanded && (
-              <p className="text-sm font-medium text-slate-500">
-                More depth available in systems, algorithms, security, and math.
-              </p>
-            )}
-            <button type="button" className="small-button ml-auto bg-white" onClick={() => setExpanded((value) => !value)}>
-              {expanded ? 'Show Less' : 'Show More'}
-              <ChevronDown size={16} className={expanded ? 'rotate-180 transition' : 'transition'} />
-            </button>
-          </div>
-        </div>
+    <section id="about" className="content-section about-section" aria-labelledby="about-heading">
+      <SectionHeading id="about-heading">A little context</SectionHeading>
+      <p className="about-lead">Thoughtful interfaces.<br /><span>Solid foundations.</span></p>
+      <div className="prose">
+        <p>I’m a Computer Science student at the <strong>University of Wisconsin–Stout</strong>. I build practical software that connects interfaces, backend services, databases, and deployment.</p>
+        <p>My work includes <a href="#project-iiif-3d-manifest-editor-and-viewer">a collaborative IIIF 3D editor</a>, <a href="#project-rankmystocks">a stock ranking platform deployed on AWS</a>, and explorations in C++ systems, procedural generation, and cryptography.</p>
       </div>
-    </Section>
-  );
-}
-
-function getSkillIcon(name) {
-  const icons = {
-    Frontend: <Code2 size={18} />,
-    'Backend and APIs': <Braces size={18} />,
-    Databases: <Database size={18} />,
-    'Cloud and DevOps': <Cloud size={18} />,
-    'Systems and Algorithms': <Wrench size={18} />,
-    'Security and Math': <Sigma size={18} />,
-  };
-
-  return icons[name] ?? <BadgeCheck size={18} />;
-}
-
-function getSkillSummary(name) {
-  const summaries = {
-    Frontend: 'Interfaces I have built with',
-    'Backend and APIs': 'API and auth experience',
-    Databases: 'Persistence used in projects',
-    'Cloud and DevOps': 'Production deployment evidence',
-    'Systems and Algorithms': 'C++ and theory-heavy builds',
-    'Security and Math': 'Coursework and CTF practice',
-  };
-
-  return summaries[name] ?? 'Technical focus area';
-}
-
-function Projects() {
-  return (
-    <Section id="projects" eyebrow="Projects" title="Some cool projects I worked on.">
-      <FeaturedProject project={featuredProject} />
-      <div className="mt-8 grid gap-5 lg:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function FeaturedProject({ project }) {
-  return (
-    <article className="project-feature" data-reveal>
-      <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr]">
-        <div>
-          <p className="section-eyebrow">Current Focus</p>
-          <h3 className="mt-3 text-3xl font-bold tracking-normal sm:text-4xl">{project.title}</h3>
-          <p className="mt-4 text-lg leading-8 text-slate-600">{project.summary}</p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.stack.map((item) => (
-              <span key={item} className="stack-pill">
-                {item}
-              </span>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {project.links.map((link) => (
-              <ButtonLink key={link.href} href={link.href} variant={link.primary ? 'primary' : 'secondary'} external>
-                {link.label}
-                <ArrowUpRight size={18} />
-              </ButtonLink>
-            ))}
-          </div>
-        </div>
-        <ProjectPreview project={project} />
-        <div className="rounded-lg border border-slate-200 bg-white p-5 lg:col-span-2">
-          <h4 className="font-semibold">Technical highlights</h4>
-          <ul className="mt-4 grid gap-3 text-sm leading-6 text-slate-600 md:grid-cols-2">
-            {project.highlights.map((highlight) => (
-              <li key={highlight} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-coral" />
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="lg:col-span-2">
-          <ProjectDetails project={project} defaultOpen />
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function ProjectCard({ project }) {
-  return (
-    <article className={project.featured ? 'project-card project-card-prominent' : 'project-card'} data-reveal>
-      <div className="flex h-full flex-col">
-        <div className="mb-5 h-2 rounded-full bg-gradient-to-r from-ocean via-mint to-coral" />
-        <ProjectPreview project={project} compact />
-        <h3 className="mt-5 text-2xl font-bold">{project.title}</h3>
-        <p className="mt-3 flex-1 leading-7 text-slate-600">{project.summary}</p>
-        {project.highlights.length > 0 && (
-          <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-600">
-            {project.highlights.slice(0, project.featured ? 4 : 3).map((highlight) => (
-              <li key={highlight} className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral" />
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        )}
-        <div className="mt-5 flex flex-wrap gap-2">
-          {project.stack.map((item) => (
-            <span key={item} className="stack-pill">
-              {item}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          {project.links.map((link) => (
-            <ButtonLink key={link.href} href={link.href} variant={link.primary ? 'primary' : 'secondary'} external>
-              {link.label}
-              <ArrowUpRight size={18} />
-            </ButtonLink>
-          ))}
-        </div>
-        <ProjectDetails project={project} />
-      </div>
-    </article>
-  );
-}
-
-function ProjectPreview({ project, compact = false }) {
-  const media = project.media ?? [];
-
-  if (media.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className={compact ? 'project-preview project-preview-compact' : 'project-preview'}>
-      <div className={media.length > 1 ? 'project-media-grid' : 'project-media-single'}>
-        {media.map((item) => (
-          <figure key={item.src} className="project-media-frame">
-            {item.type === 'video' ? (
-              <video
-                src={item.src}
-                poster={item.poster}
-                aria-label={item.alt}
-                className="project-media"
-                controls
-                muted
-                playsInline
-                preload="metadata"
-              />
-            ) : (
-              <img src={item.src} alt={item.alt} className="project-media" loading="lazy" />
-            )}
-            {item.caption && <figcaption>{item.caption}</figcaption>}
-          </figure>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProjectDetails({ project, defaultOpen = false }) {
-  return (
-    <details className="project-details" open={defaultOpen}>
-      <summary>View case study details</summary>
-      <div className="mt-4 grid gap-4 text-sm leading-6 text-slate-600">
-        <CaseStudyBlock title="Problem" content={project.problem} />
-        <CaseStudyBlock title="My Role" content={project.role} />
-        <CaseStudyBlock title="Key Features" items={project.features} />
-        <CaseStudyBlock title="Challenges Solved" items={project.challenges} />
-        <CaseStudyBlock title="What I Learned" content={project.learned} />
-        <CaseStudyBlock title="Future Improvements" items={project.future} />
-      </div>
-    </details>
-  );
-}
-
-function CaseStudyBlock({ title, content, items }) {
-  return (
-    <div>
-      <h4 className="font-bold text-ink">{title}</h4>
-      {content && <p className="mt-1">{content}</p>}
-      {items && (
-        <ul className="mt-2 space-y-1">
-          {items.map((item) => (
-            <li key={item} className="flex gap-2">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    </section>
   );
 }
 
 function Experience() {
   return (
-    <Section id="experience" eyebrow="Experience" title="Website development, capstone work, and cloud club leadership.">
-      <Timeline title="Experience" icon={<BriefcaseBusiness size={21} />} items={experience} />
-    </Section>
-  );
-}
-
-function Resume() {
-  return (
-    <Section id="resume" eyebrow="Resume" title="A concise view of my software work.">
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <Timeline title="Education" icon={<GraduationCap size={21} />} items={education} />
-        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
-          <h3 className="text-2xl font-bold">Download Resume</h3>
-          <p className="mt-4 leading-7 text-slate-600">
-            A quick summary of my projects, experience, education, and technical
-            background.
-          </p>
-          <div className="mt-6">
-            <ButtonLink href={assetPath('resume.pdf')} variant="primary" external>
-              Download Resume
-              <Download size={18} />
-            </ButtonLink>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function Timeline({ title, icon, items, children }) {
-  return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
-      <div className="mb-6 flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-ocean/10 text-ocean">{icon}</span>
-        <h3 className="text-2xl font-bold">{title}</h3>
-      </div>
-      <div className="space-y-6">
-        {items.map((item) => (
-          <div key={item.title} className="border-l-2 border-ocean/30 pl-5">
-            <h4 className="font-semibold">{item.title}</h4>
-            <p className="mt-1 text-sm font-medium text-slate-500">{item.meta}</p>
-            {item.description && <p className="mt-2 leading-7 text-slate-600">{item.description}</p>}
-          </div>
-        ))}
-      </div>
-      {children && <div className="mt-8">{children}</div>}
-    </div>
-  );
-}
-
-function Contact() {
-  return (
-    <Section id="contact" eyebrow="Contact" title="Simple ways to reach me.">
-      <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift" data-reveal>
-          <h3 className="text-xl font-bold">Contact information</h3>
-          <div className="mt-6 space-y-5">
-            {contactMethods.map((method) => (
-              <a key={method.label} href={method.href} className="contact-row">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-mist text-ocean">
-                  {method.icon === 'mail' && <Mail size={20} />}
-                  {method.icon === 'phone' && <Phone size={20} />}
-                  {method.icon === 'linkedin' && <Linkedin size={20} />}
-                  {method.icon === 'github' && <Github size={20} />}
-                  {method.icon === 'map' && <MapPin size={20} />}
-                </span>
-                <span>
-                  <span className="block text-sm font-semibold text-slate-500">{method.label}</span>
-                  <span className="block font-medium text-ink">{method.value}</span>
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-        <form
-          className="rounded-lg border border-slate-200 bg-white p-6 shadow-lift"
-          data-reveal
-          onSubmit={(event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
-            const subject = encodeURIComponent(`Portfolio message from ${name}`);
-            const body = encodeURIComponent(
-              `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-            );
-
-            window.location.href = `mailto:pandeyp1426@my.uwstout.edu?subject=${subject}&body=${body}`;
-          }}
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Name" name="name" />
-            <Field label="Email" name="email" type="email" />
-          </div>
-          <Field label="Message" name="message" multiline />
-          <button type="submit" className="button-primary mt-5 w-full justify-center">
-            Open Email
-            <Mail size={18} />
-          </button>
-        </form>
-      </div>
-    </Section>
-  );
-}
-
-function Field({ label, name, type = 'text', multiline = false }) {
-  const shared = 'mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-ocean focus:bg-white focus:ring-4 focus:ring-ocean/10';
-
-  return (
-    <label htmlFor={name} className="mt-5 block text-sm font-semibold text-slate-600">
-      {label}
-      {multiline ? (
-        <textarea id={name} name={name} rows="5" required className={`${shared} resize-none`} />
-      ) : (
-        <input id={name} name={name} type={type} required className={shared} />
-      )}
-    </label>
-  );
-}
-
-function Section({ id, eyebrow, title, children }) {
-  return (
-    <section id={id} className="scroll-mt-20 py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 max-w-3xl" data-reveal>
-          <p className="section-eyebrow">{eyebrow}</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-normal text-ink sm:text-4xl">{title}</h2>
-        </div>
-        {children}
+    <section id="experience" className="content-section" aria-labelledby="experience-heading">
+      <SectionHeading id="experience-heading">Where I contribute</SectionHeading>
+      <div className="experience-list">
+        {experience.map((item, index) => {
+          const metadata = item.meta.split(' | ');
+          const dates = metadata.pop();
+          const organization = index === 1 ? 'IIIF 3D Manifest Editor and Viewer' : metadata[0];
+          const title = index === 1 ? 'Capstone Developer' : item.title;
+          const responsibilities = index === 0 ? item.description.split(/(?<=\.)\s+(?=[A-Z])/u) : null;
+          return (
+            <article key={item.title} className="experience-entry">
+              <div className="experience-date"><span className="timeline-dot" aria-hidden="true" />{dates}</div>
+              <div className="experience-content">
+                <p className="experience-organization">{organization}</p>
+                <h3>{title}</h3>
+                {responsibilities ? <ul className="responsibilities">{responsibilities.map((text) => <li key={text}>{text}</li>)}</ul> : index === 1 ? (
+                  <>
+                    <p>Collaborated on a React-based digital humanities tool with a six-person capstone team, IIIF mentors, and UW-Stout faculty. Contributed UI features, browser persistence, and workflows for sharing manifests. The project concluded in May 2026.</p>
+                    <details className="text-disclosure">
+                      <summary>More about my contribution <ChevronDown size={15} aria-hidden="true" /></summary>
+                      <div className="disclosure-body"><p className="experience-context">{metadata.join(' · ')}</p><p>{item.description}</p></div>
+                    </details>
+                  </>
+                ) : <p>{item.description}</p>}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
 }
 
-function ButtonLink({ href, variant, external = false, children }) {
-  const className = variant === 'primary' ? 'button-primary' : 'button-secondary';
+function Education() {
   return (
-    <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} className={className}>
-      {children}
-    </a>
+    <section id="education" className="content-section" aria-labelledby="education-heading">
+      <SectionHeading id="education-heading">Education</SectionHeading>
+      <div className="experience-list">
+        {education.map((item) => {
+          const [institution, dates] = item.meta.split(' | ');
+          return (
+            <article key={item.title} className="experience-entry">
+              <div className="experience-date"><span className="timeline-dot" aria-hidden="true" />{dates}</div>
+              <div className="experience-content">
+                <p className="experience-organization">{institution}</p>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
-function Footer() {
+function Contact() {
+  const email = contactMethods.find((method) => method.icon === 'mail');
   return (
-    <footer className="border-t border-slate-200 bg-white py-8">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-slate-500 sm:flex-row sm:px-6 lg:px-8">
-        <p>Copyright 2026 Pradeep Pandey. All rights reserved.</p>
-        <div className="flex gap-4">
-          {socialLinks.map((link) => (
-            <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="font-medium hover:text-ocean">
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-    </footer>
+    <section id="contact" className="content-section contact-section" aria-labelledby="contact-heading">
+      <SectionHeading id="contact-heading">Let’s connect</SectionHeading>
+      <h3 className="contact-title">Have something<br /><span>in mind?</span></h3>
+      <p className="section-intro">A project, an opportunity, or a good technical conversation. I’d be happy to hear from you.</p>
+      <a className="contact-email" href={email.href}>{email.value}<ArrowUpRight size={22} aria-hidden="true" /></a>
+      <div className="contact-methods">{contactMethods.filter((method) => method.icon !== 'mail').map((method) => method.icon === 'map' ? <span key={method.label}><MapPin size={15} aria-hidden="true" />{method.value}</span> : <a key={method.label} href={method.href} target="_blank" rel="noreferrer" aria-label={`${method.label}: ${method.value}`}>{method.label}<ArrowUpRight size={14} aria-hidden="true" /></a>)}</div>
+      <details className="text-disclosure contact-disclosure">
+        <summary>Prefer to write a message here? <ChevronDown size={16} aria-hidden="true" /></summary>
+        <form className="contact-form" onSubmit={(event) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget);
+          const subject = encodeURIComponent(`Portfolio message from ${formData.get('name')}`);
+          const body = encodeURIComponent(`Name: ${formData.get('name')}\nEmail: ${formData.get('email')}\n\nMessage:\n${formData.get('message')}`);
+          window.location.href = `${email.href}?subject=${subject}&body=${body}`;
+        }}>
+          <div className="form-row"><Field label="Name" name="name" /><Field label="Email" name="email" type="email" /></div>
+          <Field label="Message" name="message" multiline />
+          <div className="form-footer"><p>Opens your email app with your message ready to send.</p><button type="submit" className="button-primary">Open email <ArrowUpRight size={16} aria-hidden="true" /></button></div>
+        </form>
+      </details>
+    </section>
   );
+}
+
+function Field({ label, name, type = 'text', multiline = false }) {
+  return <label className="form-field" htmlFor={name}>{label}{multiline ? <textarea id={name} name={name} rows={5} required /> : <input id={name} name={name} type={type} autoComplete={name} required />}</label>;
+}
+
+function Footer() {
+  return <footer className="site-footer"><p>Built with React. Grounded in curiosity.</p><div><span>© 2026 Pradeep Pandey. All rights reserved.</span><a href="#home" className="text-link">Back to top <ArrowUpRight size={14} aria-hidden="true" /></a></div></footer>;
 }
 
 export default App;
