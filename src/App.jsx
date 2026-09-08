@@ -306,7 +306,7 @@ function About() {
           </p>
           <p>
             I have additional work in C++ systems, procedural generation, finite
-            automata, JavaFX, cryptography, formal languages, LaTeX proof
+            automata, cryptography, formal languages, LaTeX proof
             writing, and automation-style simulators. I am also an Event
             Management Lead and core team member in the UW-Stout AWS Cloud Club,
             helping organize cloud-focused events and technical learning
@@ -466,16 +466,12 @@ function ProjectCard({ project }) {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          {project.links.length > 0 ? (
-            project.links.map((link) => (
-              <ButtonLink key={link.href} href={link.href} variant={link.primary ? 'primary' : 'secondary'} external>
-                {link.label}
-                <ArrowUpRight size={18} />
-              </ButtonLink>
-            ))
-          ) : (
-            <span className="small-button text-slate-500">Demo preview coming soon</span>
-          )}
+          {project.links.map((link) => (
+            <ButtonLink key={link.href} href={link.href} variant={link.primary ? 'primary' : 'secondary'} external>
+              {link.label}
+              <ArrowUpRight size={18} />
+            </ButtonLink>
+          ))}
         </div>
         <ProjectDetails project={project} />
       </div>
@@ -487,20 +483,11 @@ function ProjectPreview({ project, compact = false }) {
   const media = project.media ?? [];
 
   if (media.length === 0) {
-    return (
-      <div className={compact ? 'project-preview project-preview-compact' : 'project-preview'}>
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
-          {project.preview}
-        </span>
-        <p className="mt-2 text-sm font-medium text-slate-600">
-          Visual slot ready for a screenshot, short demo GIF, or product mockup.
-        </p>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className={compact ? 'project-preview project-preview-media project-preview-compact' : 'project-preview project-preview-media'}>
+    <div className={compact ? 'project-preview project-preview-compact' : 'project-preview'}>
       <div className={media.length > 1 ? 'project-media-grid' : 'project-media-single'}>
         {media.map((item) => (
           <figure key={item.src} className="project-media-frame">
@@ -563,7 +550,7 @@ function CaseStudyBlock({ title, content, items }) {
 
 function Experience() {
   return (
-    <Section id="experience" eyebrow="Experience" title="Capstone development and cloud club leadership.">
+    <Section id="experience" eyebrow="Experience" title="Website development, capstone work, and cloud club leadership.">
       <Timeline title="Experience" icon={<BriefcaseBusiness size={21} />} items={experience} />
     </Section>
   );
@@ -604,7 +591,7 @@ function Timeline({ title, icon, items, children }) {
           <div key={item.title} className="border-l-2 border-ocean/30 pl-5">
             <h4 className="font-semibold">{item.title}</h4>
             <p className="mt-1 text-sm font-medium text-slate-500">{item.meta}</p>
-            <p className="mt-2 leading-7 text-slate-600">{item.description}</p>
+            {item.description && <p className="mt-2 leading-7 text-slate-600">{item.description}</p>}
           </div>
         ))}
       </div>

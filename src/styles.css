@@ -85,15 +85,7 @@
   }
 
   .project-preview {
-    @apply min-h-64 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5;
-    background:
-      linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(45, 212, 191, 0.09) 48%, rgba(249, 115, 91, 0.08)),
-      #f8fafc;
-  }
-
-  .project-preview-media {
-    @apply overflow-hidden border-solid border-slate-200 bg-white p-2;
-    background: #ffffff;
+    @apply min-h-64 overflow-hidden rounded-lg border border-solid border-slate-200 bg-white p-2;
   }
 
   .project-preview-compact {

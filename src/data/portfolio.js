@@ -25,7 +25,6 @@ class Project {
     challenges = [],
     learned = '',
     future = [],
-    preview = 'Screenshot coming soon',
     media = [],
     featured = false,
   }) {
@@ -40,7 +39,6 @@ class Project {
     this.challenges = challenges;
     this.learned = learned;
     this.future = future;
-    this.preview = preview;
     this.media = media;
     this.featured = featured;
   }
@@ -142,7 +140,6 @@ export const featuredProject = new Project({
     'Improve preview coverage for complex 3D scenes.',
     'Add clearer onboarding examples for first-time IIIF users.',
   ],
-  preview: 'Manifest editor demo',
   media: [
     {
       type: 'video',
@@ -192,7 +189,6 @@ export const projects = [
       'Improve caching and error handling for market data.',
       'Add richer portfolio analytics and charts.',
     ],
-    preview: 'Live production app',
     media: [
       {
         type: 'image',
@@ -240,7 +236,6 @@ export const projects = [
       'Add exported reports for completed test runs.',
       'Expand validation scenarios with more edge cases.',
     ],
-    preview: 'Simulator screenshot',
     media: [
       {
         type: 'image',
@@ -282,7 +277,6 @@ export const projects = [
       'Add configurable biome rule sets.',
       'Expand Catch2 tests around edge cases.',
     ],
-    preview: 'Procedural generation demo',
     media: [
       {
         type: 'image',
@@ -324,7 +318,6 @@ export const projects = [
       'Add runnable helper scripts for each writeup.',
       'Organize challenges by difficulty level.',
     ],
-    preview: 'CTF challenge screenshots',
     media: [
       {
         type: 'image',
@@ -352,41 +345,14 @@ export const projects = [
       },
     ],
   }),
-  new Project({
-    title: 'JavaFX Checkers Game',
-    summary:
-      'A JavaFX checkers game built with object-oriented design, separated board state, movement validation, game logic, and UI rendering.',
-    stack: ['Java', 'JavaFX', 'OOP', 'Game Logic'],
-    links: [],
-    highlights: [
-      'Created separate classes for board state, pieces, players, movement validation, game logic, and UI rendering.',
-      'Implemented core gameplay rules including turns, legal moves, captures, and win detection.',
-      'Organized the codebase with JavaDoc comments for readability and maintainability.',
-    ],
-    problem:
-      'Board games are a useful way to practice state management, rule validation, and clean object-oriented structure.',
-    role:
-      'Designed and implemented the class structure, rules, and JavaFX interface.',
-    features: [
-      'Turn-based movement and legal move validation.',
-      'Capture and win detection logic.',
-      'JavaFX board rendering.',
-    ],
-    challenges: [
-      'Keeping UI rendering separate from game rules.',
-      'Handling board state changes cleanly after moves and captures.',
-    ],
-    learned:
-      'This project helped reinforce Java class design, state management, and readable OOP organization.',
-    future: [
-      'Add better visual polish.',
-      'Add restart and move history controls.',
-      'Add test coverage around move validation.',
-    ],
-  }),
 ];
 
 export const experience = [
+  new TimelineItem(
+    'Website Development and Transition Intern',
+    'Downtown Menomonie | Aug 2026 - Present',
+    "Redesign and enhance Downtown Menomonie's website to showcase local businesses, community events, and downtown identity through engaging visual storytelling. Collaborate with staff and board members to translate organizational goals and stakeholder feedback into website requirements and design priorities. Improve content structure and navigation so visitors can discover events, access business resources, and explore opportunities for community involvement.",
+  ),
   new TimelineItem(
     'Real-Life Capstone Developer, IIIF 3D Manifest Editor and Viewer',
     'Team capstone project | Agile/Scrum | React, TypeScript, Vite, Tailwind, IndexedDB, IIIF JSON | 2026 - Present',
